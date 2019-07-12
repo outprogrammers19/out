@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>OUT</DisplayName>
+    <Description>An aggregator of university links and resources.</Description>
+    <Version>1.0.0-1</Version>
+    <ReleaseDate>2019-07-11</ReleaseDate>
+    <Default>true</Default>
+    <Script>install-script.qs</Script>
+</Package>

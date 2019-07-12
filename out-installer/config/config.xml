@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>OUT</Name>
+    <Version>1.0.0</Version>
+    <Title>OUT - The Open Univeristy of Tanzania</Title>
+    <Publisher>The Open Univeristy of Tanzania</Publisher>
+    <StartMenuDir>The Open Univeristy of Tanzania</StartMenuDir>
+    <TargetDir>@ApplicationsDirX64@/The Open Univeristy of Tanzania</TargetDir>
+</Installer>

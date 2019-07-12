@@ -79,14 +79,12 @@ Thumbs.db
 # --------
 *.dll
 *.exe
-*.out
 *.app
 *.so
 *.dylib
 *.dll
 *.lai
 *.la
-*.a
 *.lib
 
 # Build directories

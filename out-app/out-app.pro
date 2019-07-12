@@ -18,9 +18,8 @@ RESOURCES += qml.qrc
 OTHER_FILES += \
     other/websites_list.json
 
-# NOTE not working!
-#RC_ICONS = out.ico
-#ICON = out.ico
+RC_ICONS = other/app-icon/out.ico
+ICON = other/app-icon/out.ico
 
 # copy websites_list.json and icons to build direcotry
 
