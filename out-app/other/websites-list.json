@@ -1,0 +1,89 @@
+{
+    "websites": [
+        {
+            "name": "Staff Mail",
+            "url": "https://mail.out.ac.tz",
+            "icon": "staff.png"
+        },
+        {
+            "name": "Zimbra",
+            "url": "https://196.216.247.6",
+            "icon": "zimbra.png"
+        },
+        {
+            "name": "OLD Staff Mail",
+            "url": "https://196.216.247.10",
+            "icon": "old-staff.png"
+        },
+        {
+            "name": "SARIS Login",
+            "url": "http://des.out.ac.tz",
+            "icon": "saris.png"
+        },
+        {
+            "name": "Mfumo Wa Vibali Vya Kusafiri Nje",
+            "url": "https://safari.gov.go.tz/index.php/user/auth/login",
+            "icon": "safari.png"
+        },
+        {
+            "name": "OUT E-Learning",
+            "url": "https://elms.out.ac.tz/login/index.php",
+            "icon": "e-learng.png"
+        },
+        {
+            "name": "File Tracking System",
+            "url": "https://fts.out.ac.tz/index.php/login",
+            "icon": "file.png"
+        },
+        {
+            "name": "HRMIS System",
+            "url": "https://hrmis.out.ac.tz/hrmis/index.php/login",
+            "icon": "hrmis.png"
+        },
+        {
+            "name": "OUT Baraza Wafanyakazi",
+            "url": "http://196.216.247.26:8087",
+            "icon": "baraza.png"
+        },
+        {
+            "name": "turnitin",
+            "url": "https://www.turnitin.com/login_page.asp",
+            "icon": "turnitin.png"
+        },
+        {
+            "name": "PPF",
+            "url": "https://statements.ppf.or.tz",
+            "icon": "ppf.png"
+        },
+        {
+            "name": "Watumishi Portal",
+            "url": "http://watumishiportal.utumishi.go.tz/",
+            "icon": "watumishi.png"
+        },
+        {
+            "name": "Salary Slip Self Service",
+            "url": "https://salaryslip.mof.go.tz/Account/Login?ReturnUrl=",
+            "icon": "salary.png"
+        },
+        {
+            "name": "www.out.ac.tz",
+            "url": "https://www.out.ac.tz",
+            "icon": "out.png"
+        },
+        {
+            "name": "Colacc Accounting System",
+            "url": "https://finmis.out.ac.tz/",
+            "icon": "ca-system.png"
+        },
+        {
+            "name": "Government e-Payment Gateway",
+            "url": "https://gepg.go.tz/login",
+            "icon": "gateway.png"
+        },
+        {
+            "name": "OPRAS",
+            "url": "http://opras.out.ac.tz/opra.html",
+            "icon": "opras.png"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/WebsiteTile.qml</file>
+        <file>qml/LayoutSettings.qml</file>
+        <file>qml/qmldir</file>
+        <file>qml/TilesGrid.qml</file>
+        <file>other/app-icon/out.ico</file>
+    </qresource>
+</RCC>
