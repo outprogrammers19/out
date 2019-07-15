@@ -16,21 +16,33 @@ SOURCES += \
 RESOURCES += qml.qrc
 
 OTHER_FILES += \
-    other/websites_list.json
+    other/websites/websites-list.json \
+    other/documents/documents-list.json
 
 RC_ICONS = other/app-icon/out.ico
 ICON = other/app-icon/out.ico
 
-# copy websites_list.json and icons to build direcotry
+# copy resources to build directories
 
 COPIES += copy_to_build_dir
-copy_to_build_dir.files += $$files(other/websites-list.json)
 copy_to_build_dir.files += $$files(other/app-icon/out.ico)
 copy_to_build_dir.path = $$OUT_PWD
 
+COPIES += copy_to_websites_dir
+copy_to_websites_dir.files += $$files(other/websites/websites-list.json)
+copy_to_websites_dir.path = $$OUT_PWD/websites
+
 COPIES += copy_to_website_icons_dir
-copy_to_website_icons_dir.files = $$files(other/website-icons/*.png)
-copy_to_website_icons_dir.path = $$OUT_PWD/website-icons
+copy_to_website_icons_dir.files += $$files(other/websites/website-icons/*)
+copy_to_website_icons_dir.path = $$OUT_PWD/websites/website-icons
+
+COPIES += copy_to_documents_dir
+copy_to_documents_dir.files += $$files(other/documents/documents-list.json)
+copy_to_documents_dir.path = $$OUT_PWD/documents
+
+COPIES += copy_to_documents_files_dir
+copy_to_documents_files_dir.files += $$files(other/documents/document-files/*)
+copy_to_documents_files_dir.path = $$OUT_PWD/documents/document-files
 
 
 ## Additional import path userd to resolve QML modules in Qt Creator's code model

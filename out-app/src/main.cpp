@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     DataModel model;
-    model.readWebsitesList("websites-list.json");
+    model.readWebsitesList("websites/websites-list.json");
     engine.rootContext()->setContextProperty("dataModel", &model);
 
     engine.load(url);

@@ -4,7 +4,8 @@
         <file>qml/WebsiteTile.qml</file>
         <file>qml/LayoutSettings.qml</file>
         <file>qml/qmldir</file>
-        <file>qml/TilesGrid.qml</file>
         <file>other/app-icon/out.ico</file>
+        <file>qml/WebsitesPage.qml</file>
+        <file>qml/DocumentsPage.qml</file>
     </qresource>
 </RCC>

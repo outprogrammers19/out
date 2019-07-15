@@ -2,9 +2,10 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
+
 Item {
-    id: tilesGrid;
-    property bool isScrollbarVisible: gridLayout.height > tilesGrid.height;
+    id: websitesPage;
+    property bool isScrollbarVisible: gridLayout.height > websitesPage.height;
 
     Rectangle {
         anchors.fill: parent;
@@ -28,7 +29,7 @@ Item {
 
         GridLayout {
             id: gridLayout;
-            width: tilesGrid.width - scrollBar.width;
+            width: websitesPage.width - scrollBar.width;
             anchors.centerIn: parent;
             columns: Math.max(1, width / LayoutSettings.tileWidth);
             columnSpacing: 0;
@@ -40,7 +41,7 @@ Item {
             }
 
             onHeightChanged: {
-                width: height > parent.height ? tilesGrid.width - scrollBar.width : tilesGrid.width;
+                width: height > parent.height ? websitesPage.width - scrollBar.width : websitesPage.width;
             }
         }
     }

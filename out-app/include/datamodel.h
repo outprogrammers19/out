@@ -29,9 +29,9 @@ public slots:
 private:
 
 #ifdef Q_OS_WIN
-    const QString webIconsDirName = "website-icons\\";
+    const QString webIconsDirName = "websites\\website-icons\\";
 #else
-    const QString webIconsDirName = "website-icons/";
+    const QString webIconsDirName = "websites/website-icons/";
 #endif
 
     int m_count = 0;
