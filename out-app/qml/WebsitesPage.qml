@@ -5,6 +5,7 @@ import QtQuick.Controls 2.12
 
 Item {
     id: websitesPage;
+
     property bool isScrollbarVisible: gridLayout.height > websitesPage.height;
 
     Rectangle {
@@ -14,7 +15,7 @@ Item {
 
     Flickable {
         width: parent.width;
-        height: parent.height - 2 * LayoutSettings.toolbarHorizonatalSpaceSize;
+        height: parent.height - 2 * Config.toolbarHorizonatalSpaceSize; // NOTE: no need to multiply by scale
         anchors.centerIn: parent;
         contentHeight: gridLayout.height
         contentWidth: gridLayout.width
@@ -23,7 +24,7 @@ Item {
 
         ScrollBar.vertical: ScrollBar {
             id: scrollBar;
-            width: LayoutSettings.scrollbarWidth;
+            width: Config.scrollbarWidth;
             policy: isScrollbarVisible ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff;
         }
 
@@ -31,7 +32,7 @@ Item {
             id: gridLayout;
             width: websitesPage.width - scrollBar.width;
             anchors.centerIn: parent;
-            columns: Math.max(1, width / LayoutSettings.tileWidth);
+            columns: Math.max(1, width / Config.tileWidth);
             columnSpacing: 0;
             rowSpacing: 0;
 
@@ -48,14 +49,14 @@ Item {
 
 //    Rectangle {
 //        width: parent.width;
-//        height: LayoutSettings.toolbarHorizonatalSpaceSize;
+//        height: Config.toolbarHorizonatalSpaceSize;
 //        color: "white";
 //        anchors.top: parent.top;
 //    }
 
 //    Rectangle {
 //        width: parent.width;
-//        height: LayoutSettings.toolbarHorizonatalSpaceSize;
+//        height: Config.toolbarHorizonatalSpaceSize;
 //        color: "white";
 //        anchors.bottom: parent.bottom;
 //    }

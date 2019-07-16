@@ -1,1 +1,1 @@
-singleton LayoutSettings 1.0 LayoutSettings.qml
+singleton Config 1.0 Config.qml

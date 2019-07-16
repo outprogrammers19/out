@@ -4,49 +4,50 @@ import QtQuick.Layouts 1.13
 
 ApplicationWindow {
     id: window;
-    width: 900;
-    height: 680;
-    minimumWidth: 500;
-    minimumHeight: 320;
     visible: true;
+
+    width: 900 * Config.scale;
+    height: 680 * Config.scale;
+    minimumWidth: 500 * Config.scale;
+    minimumHeight: 320 * Config.scale;
 
     header: ToolBar {
         id: toolBar;
-        height: LayoutSettings.toolbarHeight;
+        height: Config.toolbarHeight;
 
         TabBar {
             id: tabBar;
             width: parent.width;
             anchors.left: parent.left;
             anchors.bottom: parent.bottom;
-            contentHeight: LayoutSettings.toolbarHeight - 4;
+            contentHeight: Config.toolbarHeight - 4 * Config.scale;
             currentIndex: swipeView.currentIndex
 
             TabButton {
                 id: webTabButton
                 text: "Websites";
-                font.pixelSize: LayoutSettings.bigFontSize;
+                font.pixelSize: Config.bigFontSize;
                 icon.source: "qrc:/other/app-icons/applications-internet.png";
-                icon.height: webTabButton.height - 16;
-                icon.width: webTabButton.height - 16;
+                icon.height: webTabButton.height - 16 * Config.scale;
+                icon.width: webTabButton.height - 16 * Config.scale;
 //                font.bold: true;
             }
             TabButton {
                 id: docsTabButton;
                 text: "Documents";
-                font.pixelSize: LayoutSettings.bigFontSize;
+                font.pixelSize: Config.bigFontSize;
                 icon.source: "qrc:/other/app-icons/document-open.png";
-                icon.height: docsTabButton.height - 12;
-                icon.width: docsTabButton.height - 12;
+                icon.height: docsTabButton.height - 12 * Config.scale;
+                icon.width: docsTabButton.height - 12 * Config.scale;
 //                font.bold: true;
             }
             TabButton {
                 id: settingsTabButton;
                 text: "Settings";
-                font.pixelSize: LayoutSettings.bigFontSize;
+                font.pixelSize: Config.bigFontSize;
                 icon.source: "qrc:/other/app-icons/system-run.png";
-                icon.height: settingsTabButton.height - 16;
-                icon.width: settingsTabButton.height - 16;
+                icon.height: settingsTabButton.height - 16 * Config.scale;
+                icon.width: settingsTabButton.height - 16 * Config.scale;
 //                font.bold: true;
             }
         } // TabBar
@@ -54,10 +55,10 @@ ApplicationWindow {
 //        Button {
 //            id: updateButton;
 //            anchors.verticalCenter: parent.verticalCenter;
-//            height: LayoutSettings.buttonHeight;
+//            height: Config.buttonHeight;
 //            anchors.right: exitButton.left;
 //            anchors.rightMargin: 10;
-//            font.pixelSize: LayoutSettings.bigFontSize;
+//            font.pixelSize: Config.bigFontSize;
 //            text: "Update";
 //            onReleased:; // TODO busy indicator + logic
 //            visible: false;
@@ -65,9 +66,9 @@ ApplicationWindow {
 //        Button {
 //            id: exitButton;
 //            anchors.verticalCenter: parent.verticalCenter;
-//            height: LayoutSettings.buttonHeight;
+//            height: Config.buttonHeight;
 //            anchors.right: parent.right;
-//            font.pixelSize: LayoutSettings.bigFontSize;
+//            font.pixelSize: Config.bigFontSize;
 //            text: "Exit";
 //            onReleased: Qt.quit();
 //        }
@@ -79,7 +80,7 @@ ApplicationWindow {
         width: parent.width;
         height: parent.height;
         currentIndex: tabBar.currentIndex
-        interactive: LayoutSettings.interactiveSwipe;
+        interactive: Config.interactiveSwipe;
 
         WebsitesPage { }
         DocumentsPage { }
@@ -90,8 +91,8 @@ ApplicationWindow {
         width: parent.width;
         Label {
             id: statusLabel;
-            leftPadding: 10;
-            font.pixelSize: LayoutSettings.smallFontSize;
+            leftPadding: 10 * Config.scale;
+            font.pixelSize: Config.normalFontSize;
             anchors.verticalCenter: parent.verticalCenter;
             text: dataModel.status;
         }

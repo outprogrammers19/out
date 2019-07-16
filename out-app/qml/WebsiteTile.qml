@@ -2,12 +2,14 @@ import QtQuick 2.0
 import QtQuick.Controls 2.12
 
 Item {
-    width: LayoutSettings.tileWidth;
-    height: LayoutSettings.tileHeight;
+    id: websiteTile;
+
+    width: Config.tileWidth;
+    height: Config.tileHeight;
 
     Item {
-        width: parent.width - 10;
-        height: parent.height - 10;
+        width: parent.width - 10 * Config.scale;
+        height: parent.height - 10 * Config.scale;
         anchors.centerIn: parent;
 
         Button {
@@ -32,7 +34,7 @@ Item {
             }
 
             text: dataModel.icon(index) === "" ? dataModel.name(index) : "";
-            font.pixelSize: LayoutSettings.smallFontSize;
+            font.pixelSize: Config.normalFontSize;
 
             Image {
                 id: webIcon;
