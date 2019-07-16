@@ -44,19 +44,19 @@ Item {
                 width: height > parent.height ? websitesPage.width - scrollBar.width : websitesPage.width;
             }
         }
-    }
+    } // Flickable
 
-    Rectangle {
-        width: parent.width;
-        height: LayoutSettings.toolbarHorizonatalSpaceSize;
-        color: "white";
-        anchors.top: parent.top;
-    }
+//    Rectangle {
+//        width: parent.width;
+//        height: LayoutSettings.toolbarHorizonatalSpaceSize;
+//        color: "white";
+//        anchors.top: parent.top;
+//    }
 
-    Rectangle {
-        width: parent.width;
-        height: LayoutSettings.toolbarHorizonatalSpaceSize;
-        color: "white";
-        anchors.bottom: parent.bottom;
-    }
+//    Rectangle {
+//        width: parent.width;
+//        height: LayoutSettings.toolbarHorizonatalSpaceSize;
+//        color: "white";
+//        anchors.bottom: parent.bottom;
+//    }
 }

@@ -11,6 +11,10 @@ app:
         -> http folder?
         -> update only changes, do not download all the data each time (check time of changes in http server?)
         -> conccurent download?
+    -> settings page:
+        -> gui scalling
+        -> update, exit
+        -> authors, license
 
 installer:
     windows:

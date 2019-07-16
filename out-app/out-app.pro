@@ -19,13 +19,13 @@ OTHER_FILES += \
     other/websites/websites-list.json \
     other/documents/documents-list.json
 
-RC_ICONS = other/app-icon/out.ico
-ICON = other/app-icon/out.ico
+RC_ICONS = other/app-icons/out.ico
+ICON = other/app-icons/out.ico
 
 # copy resources to build directories
 
 COPIES += copy_to_build_dir
-copy_to_build_dir.files += $$files(other/app-icon/out.ico)
+copy_to_build_dir.files += $$files(other/app-icons/out.ico)
 copy_to_build_dir.path = $$OUT_PWD
 
 COPIES += copy_to_websites_dir

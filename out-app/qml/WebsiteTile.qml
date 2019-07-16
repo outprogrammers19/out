@@ -29,10 +29,10 @@ Item {
             onHoveredChanged: {
                 var status = webButton.hovered ? dataModel.url(index) : "";
                 dataModel.setStatus(status);
-
             }
 
             text: dataModel.icon(index) === "" ? dataModel.name(index) : "";
+            font.pixelSize: LayoutSettings.smallFontSize;
 
             Image {
                 id: webIcon;
@@ -42,6 +42,6 @@ Item {
                 fillMode: Image.PreserveAspectFit;
                 source: dataModel.icon(index);
             }
-        }
+        } // webButton
     }
 }
