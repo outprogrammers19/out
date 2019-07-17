@@ -37,7 +37,7 @@ Item {
             rowSpacing: 0;
 
             Repeater {
-                model: websModel.count();
+                model: websModel.count;
                 WebsiteTile { }
             }
 

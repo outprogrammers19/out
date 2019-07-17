@@ -8,11 +8,13 @@ INCLUDEPATH += include
 
 HEADERS += \
     include/documentsmodel.h \
+    include/manager.h \
     include/websitesmodel.h
 
 SOURCES += \
     src/documentsmodel.cpp \
     src/main.cpp \
+    src/manager.cpp \
     src/websitesmodel.cpp
 
 RESOURCES += qml.qrc

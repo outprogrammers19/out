@@ -47,11 +47,18 @@ QVariant DocumentsModel::data(const QModelIndex &index, int role) const
     return result;
 }
 
-void DocumentsModel::addDocument(Document document)
+void DocumentsModel::addDocument(const Document &document)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_docs << document;
     endInsertRows();
+}
+
+void DocumentsModel::clear()
+{
+    beginRemoveRows(QModelIndex(), rowCount(), rowCount());
+    m_docs.clear();
+    endRemoveRows();
 }
 
 void DocumentsModel::tmp_initialize()

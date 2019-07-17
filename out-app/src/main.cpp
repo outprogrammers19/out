@@ -4,6 +4,7 @@
 #include <QIcon>
 #include <QQuickStyle>
 
+#include "manager.h"
 #include "websitesmodel.h"
 #include "documentsmodel.h"
 
@@ -13,18 +14,32 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling); // NOTE: not tested on HiDpi
     QQuickStyle::setStyle("Fusion");
 
+    // Create instanceof qapplication before manager and models
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon("out.ico"));
 
-    // Load custom C++ classes to be visible in QML engine
+    // Create C++ classes and load settings
+    WebsitesModel websModel;
+    DocumentsModel docsModel;
+    Manager manager;
+
+    // TOOD errors, msgs or print status in gui:
+    if (manager.readAppConfig("") == false) {
+        return -1;
+    }
+    if (manager.readWebsitesConfig(websModel) == false) {
+//        return -1;
+    }
+    if (manager.readDocumentsConfig(docsModel) == false) {
+//        return -1;
+    }
+
     QQmlApplicationEngine engine;
 
-    WebsitesModel websModel;
-    websModel.readWebsitesList("config/websites-list.json");
+    // Expose C++ classes to the QML engine
     engine.rootContext()->setContextProperty("websModel", &websModel);
-
-    DocumentsModel docsModel;
     engine.rootContext()->setContextProperty("docsModel", &docsModel);
+    engine.rootContext()->setContextProperty("manager", &manager);
 
     // Load QML files
     const QUrl url(QStringLiteral("qrc:///qml/main.qml"));

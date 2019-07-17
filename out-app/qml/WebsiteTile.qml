@@ -21,21 +21,23 @@ Item {
             ToolTip.delay: 1000;
             ToolTip.timeout: 5000;
             ToolTip.visible: hovered;
-            ToolTip.text: websModel.name(index);
+            ToolTip.text: "Open website: " + websModel.name(index);
             
-            onReleased: websModel.openUrl(index);
+            onReleased: manager.openUrl(websModel.url(index));
             onHighlightedChanged: {
                 console.log(highlighted)
             }
 
             onHoveredChanged: {
                 var status = webButton.hovered ? websModel.url(index) : "";
-                websModel.setStatus(status);
+                manager.setStatusMsg(status);
             }
 
             text: websModel.icon(index) === "" ? websModel.name(index) : "";
             font.pixelSize: Config.bigFontSize;
 
+            // I couldn't find the option to properly scale button.icon,
+            // so I decided load icon using Image as button's child
             Image {
                 id: webIcon;
                 anchors.centerIn: parent;

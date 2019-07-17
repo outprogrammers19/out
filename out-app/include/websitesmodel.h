@@ -6,45 +6,33 @@
 class WebsitesModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString status READ status WRITE setStatus NOTIFY statusChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
-    explicit WebsitesModel(QObject *parent = nullptr);
-    bool readWebsitesList(const QString &filename);
-    void clear();
+    struct Website {
+        QString name;
+        QString url;
+        QString icon;
+    };
 
+    explicit WebsitesModel(QObject *parent = nullptr);
+    void addWebsite(const Website &web);
+    int count() const;
+
+    void clear();
     QString status() const;
 
 signals:
     void statusChanged(QString status);
+    void countChanged(int count);
 
 public slots:
-    int count() const;
     QString name(int index) const;
     QString url(int index) const;
     QString icon(int index) const;
-    bool openUrl(int index) const;
-    void setStatus(QString status);
 
 private:
-
-// NOTE: no need for that?
-//#ifdef Q_OS_WIN
-//    const QString websIconsDir = "websites-icons\\";
-//#else
-    const QString websIconsDir = "websites-icons/";
-//#endif
-
-    // TODO move websIconsDir to config
-
-    int m_count = 0;
-    QStringList m_names;
-    QStringList m_urls;
-    QStringList m_icons;
-    QString m_status;
-
-    bool storeWebsitesDetails(QJsonObject &root);
-    void validateIconFiles();
+    QVector<Website> m_webs;
 };
 
 #endif // WEBSITES_MODEL_H

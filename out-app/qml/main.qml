@@ -73,7 +73,7 @@ ApplicationWindow {
             leftPadding: 10 * Config.scale;
             font.pixelSize: Config.normalFontSize;
             anchors.verticalCenter: parent.verticalCenter;
-            text: websModel.status;
+            text: manager.statusMsg;
         }
     }
 

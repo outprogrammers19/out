@@ -34,12 +34,14 @@ public:
     /** defines names of attributes used in view's delegate */
     QHash<int, QByteArray> roleNames() const override;
 
-    void addDocument(Document document);
+    void addDocument(const Document &document);
+
+    void clear();
 
 signals:
 
 public slots:
-    void tmp_initialize();
+    void tmp_initialize(); // TODO remove
 
 private:
     QVector<Document> m_docs;

@@ -2,7 +2,6 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.9
 import QtQuick.Controls 2.9
 
-
 Item {
     id: documentsPage;
 
@@ -19,7 +18,7 @@ Item {
 
     Component.onCompleted: updateTotalEntiresHeight();
 
-    // ----- page structure -----
+    // page structure:
 
     Connections {
         target: docsModel;
@@ -31,10 +30,10 @@ Item {
         color: "white";
     }
 
-    // structure of single document entry:
     Component {
         id: documentDelegate
 
+        // structure of single document entry:
         Item {
             width: documentsPage.width;
             height: Config.docEntryHeight;
@@ -81,20 +80,33 @@ Item {
             }
             Button {
                 id: openButton;
-                text: "Open";
                 width: 140 * Config.scale;
                 height: Config.docEntryButtonHeight;
                 anchors.rightMargin: 40 * Config.scale;
                 anchors.right: parent.right;
                 anchors.verticalCenter: parent.verticalCenter;
+
+                text: "Open";
+                font.pixelSize: Config.bigFontSize;
+                //font.bold: true;
+
+                //focus: true;
+                hoverEnabled: true;
+                ToolTip.delay: 1000;
+                ToolTip.timeout: 5000;
+                ToolTip.visible: hovered;
+                ToolTip.text: "Open file: " + manager.filenameFromPath(path);
+
                 icon.source: "qrc:/other/app-icons/text-x-generic.png";
                 icon.height: buttonIconSize;
                 icon.width: buttonIconSize;
                 icon.color: openButton.enabled ? "black" : "lightgrey";
-                font.pixelSize: Config.bigFontSize;
-                //font.bold: true;
 
-                onReleased: console.log(url);
+                onReleased: manager.openUrl(path === "" ? url : path);
+                onHoveredChanged: {
+                    var status = openButton.hovered ? url : "";
+                    manager.setStatusMsg(status);
+                }
             }
             // top and bottom lines of entry:
             Rectangle {
@@ -134,9 +146,4 @@ Item {
             policy: isScrollbarVisible ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff;
         }
     } // listView
-
-    Button {
-        onReleased: docsModel.tmp_initialize();
-        anchors.bottom: parent.bottom;
-    }
 }
