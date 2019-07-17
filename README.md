@@ -1,2 +1,2 @@
 # out
-The Open University Of Tanzania application  
+The Open University of Tanzania application  

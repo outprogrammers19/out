@@ -1,4 +1,4 @@
-#include "datamodel.h"
+#include "websitesmodel.h"
 
 #include <QFileInfo>
 #include <QJsonDocument>
@@ -10,11 +10,11 @@
 
 #include <exception>
 
-DataModel::DataModel(QObject *parent)
+WebsitesModel::WebsitesModel(QObject *parent)
     : QObject(parent)
 { }
 
-bool DataModel::readWebsitesList(const QString &filename)
+bool WebsitesModel::readWebsitesList(const QString &filename)
 {
     clear();
 
@@ -47,7 +47,7 @@ bool DataModel::readWebsitesList(const QString &filename)
     return true;
 }
 
-bool DataModel::storeWebsitesDetails(QJsonObject &root)
+bool WebsitesModel::storeWebsitesDetails(QJsonObject &root)
 {
     QJsonArray websites = root.value("websites").toArray();
 
@@ -64,7 +64,7 @@ bool DataModel::storeWebsitesDetails(QJsonObject &root)
 
         m_names.push_back(nameVal.toString());
         m_urls.push_back(urlVal.toString());
-        m_icons.push_back(webIconsDirName + iconVal.toString());
+        m_icons.push_back(websIconsDir + iconVal.toString());
     }
 
     assert (m_names.count() == m_urls.count());
@@ -75,18 +75,23 @@ bool DataModel::storeWebsitesDetails(QJsonObject &root)
     return true;
 }
 
-void DataModel::validateIconFiles()
+void WebsitesModel::validateIconFiles()
 {
     for (QString &filename : m_icons) {
         QFileInfo fileStatus(filename);
-        if (!fileStatus.exists() || !fileStatus.isFile())
+        if (!fileStatus.exists() || !fileStatus.isFile()) {
+            qWarning().noquote().nospace()
+                    // << __FILE__ << ":" << __LINE__ << ":  "
+                    << "Failed to open file '" << filename << "'.";
             filename = "";
-        else
+        }
+        else {
             filename = "file:" + filename;
+        }
     }
 }
 
-void DataModel::clear()
+void WebsitesModel::clear()
 {
     m_count = 0;
     m_names.clear();
@@ -94,38 +99,38 @@ void DataModel::clear()
     m_icons.clear();
 }
 
-QString DataModel::status() const
+QString WebsitesModel::status() const
 {
     return m_status;
 }
 
-int DataModel::count() const
+int WebsitesModel::count() const
 {
     return m_count;
 }
 
-QString DataModel::name(int index) const
+QString WebsitesModel::name(int index) const
 {
     if(index < 0 || index > m_count)
         return "";
     return m_names[index];
 }
 
-QString DataModel::url(int index) const
+QString WebsitesModel::url(int index) const
 {
     if(index < 0 || index > m_count)
         return "";
     return m_urls[index];
 }
 
-QString DataModel::icon(int index) const
+QString WebsitesModel::icon(int index) const
 {
     if(index < 0 || index > m_count)
         return "";
     return m_icons[index];
 }
 
-bool DataModel::openUrl(int index) const
+bool WebsitesModel::openUrl(int index) const
 {
     auto web_url = url(index);
     if (web_url.isNull() || web_url.isEmpty())
@@ -133,7 +138,7 @@ bool DataModel::openUrl(int index) const
     return QDesktopServices::openUrl(QUrl(url(index), QUrl::TolerantMode));
 }
 
-void DataModel::setStatus(QString status)
+void WebsitesModel::setStatus(QString status)
 {
     if (m_status == status)
         return;

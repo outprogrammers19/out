@@ -1,64 +1,52 @@
-import QtQuick 2.12
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Layouts 1.9
+import QtQuick.Controls 2.9
 
 
 Item {
     id: documentsPage;
 
-    property real buttonIconSize: Config.buttonHeight - 14 * Config.scale;
-    property real totalEntriesHeight: Config.documentEntryHeight * listModel.count;
+    property real buttonIconSize: Config.docEntryButtonHeight - 22 * Config.scale;
     property bool isScrollbarVisible: totalEntriesHeight > documentsPage.height;
     property int selectedIndex: -1;
+
+    // auto-caculate height of all docs entries:
+    property real totalEntriesHeight;
+
+    function updateTotalEntiresHeight() {
+        totalEntriesHeight = Config.docEntryHeight * docsModel.rowCount();
+    }
+
+    Component.onCompleted: updateTotalEntiresHeight();
+
+    // ----- page structure -----
+
+    Connections {
+        target: docsModel;
+        onRowsInserted: updateTotalEntiresHeight();
+    }
 
     Rectangle {
         anchors.fill: parent;
         color: "white";
     }
 
-    ListModel {
-        id: listModel
-        ListElement {
-            name: "Prospectus";
-            date: "2019-07-15";
-        }
-        ListElement {
-            name: "Almanac";
-            date: "2019-07-15";
-        }
-        ListElement {
-            name: "Examination information";
-            date: "2019-07-15";
-        }
-        ListElement {
-            name: "Prospectus";
-            date: "2019-07-15";
-        }
-        ListElement {
-            name: "Almanac";
-            date: "2019-07-15";
-        }
-        ListElement {
-            name: "Examination information";
-            date: "2019-07-15";
-        }
-    } // ListModel
-
+    // structure of single document entry:
     Component {
         id: documentDelegate
 
         Item {
             width: documentsPage.width;
-            height: Config.documentEntryHeight;
+            height: Config.docEntryHeight;
 
             Rectangle {
                 id: bg;
                 anchors.fill: parent;
-                anchors.topMargin: 1 * Config.scale;
+                anchors.topMargin: Math.max(1, Math.floor(1 * Config.scale));
                 anchors.leftMargin: 20 * Config.scale;
                 anchors.rightMargin: 20 * Config.scale;
                 color: index === selectedIndex ? "#dddddd" : "transparent";
-                // color: index === selectedIndex ? "lightgrey" : "transparent";
+                //color: index === selectedIndex ? "lightgrey" : "transparent";
 
                 MouseArea{
                     id: mouseArea;
@@ -74,53 +62,41 @@ Item {
             Label {
                 id: docNameLabel;
                 text: name;
+                wrapMode: Label.WrapAnywhere;
+                maximumLineCount: 1;
                 anchors.verticalCenter: parent.verticalCenter;
-                anchors.leftMargin: 30 * Config.scale;
+                anchors.leftMargin: 35 * Config.scale;
                 anchors.left: parent.left;
-                anchors.right: dateLabel.left;
+                anchors.right: openButton.left;
                 font.pixelSize: Config.bigFontSize;
                 font.bold: true;
             }
             Label {
                 id: dateLabel;
-                text: date;
+                text: timestamp;
                 font.pixelSize: Config.smallFontSize;
                 anchors.bottom: parent.bottom;
-                anchors.right: fileButton.left;
+                anchors.right: openButton.left;
                 anchors.rightMargin: 10 * Config.scale;
             }
             Button {
-                id: fileButton;
-                text: "File";
-                width: 100 * Config.scale;
-                height: Config.buttonHeight;
-                anchors.rightMargin: 20 * Config.scale;
-                anchors.right: linkButton.left;
+                id: openButton;
+                text: "Open";
+                width: 140 * Config.scale;
+                height: Config.docEntryButtonHeight;
+                anchors.rightMargin: 40 * Config.scale;
+                anchors.right: parent.right;
                 anchors.verticalCenter: parent.verticalCenter;
-                font.pixelSize: Config.bigFontSize;
                 icon.source: "qrc:/other/app-icons/text-x-generic.png";
                 icon.height: buttonIconSize;
                 icon.width: buttonIconSize;
-                icon.color: fileButton.enabled ? "black" : "lightgrey";
-                // font.bold: true;
-                // enabled: false;
-            }
-            Button {
-                id: linkButton;
-                text: "Link";
-                width: 100 * Config.scale;
-                height: Config.buttonHeight;
-                anchors.rightMargin: 35 * Config.scale;
-                anchors.right: parent.right;
-                anchors.verticalCenter: parent.verticalCenter;
-                // icon.source: "qrc:/other/app-icons/text-html.png";
-                icon.source: "qrc:/other/app-icons/applications-internet.png";
-                icon.height: buttonIconSize;
-                icon.width: buttonIconSize;
-                icon.color: linkButton.enabled ? "black" : "lightgrey";
+                icon.color: openButton.enabled ? "black" : "lightgrey";
                 font.pixelSize: Config.bigFontSize;
-                // font.bold: true;
+                //font.bold: true;
+
+                onReleased: console.log(url);
             }
+            // top and bottom lines of entry:
             Rectangle {
                 id: topLine;
                 anchors.top: parent.top;
@@ -128,7 +104,7 @@ Item {
                 anchors.right: parent.right;
                 anchors.leftMargin: 20 * Config.scale;
                 anchors.rightMargin: 20 * Config.scale;
-                height: index === 0 ? 1 * Config.scale : 0;
+                height: index !== 0 ? 0 : Math.max(1, Math.floor(1 * Config.scale));
                 color: "lightgrey";
             }
             Rectangle {
@@ -138,7 +114,7 @@ Item {
                 anchors.right: parent.right;
                 anchors.leftMargin: 20 * Config.scale;
                 anchors.rightMargin: 20 * Config.scale;
-                height: 1 * Config.scale;
+                height: Math.max(1, Math.floor(1 * Config.scale));
                 color: "lightgrey";
             }
         }
@@ -148,7 +124,7 @@ Item {
         id: listView;
         anchors.fill: parent
         clip: true
-        model: listModel
+        model: docsModel
         delegate: documentDelegate
         interactive: isScrollbarVisible;
 
@@ -159,4 +135,8 @@ Item {
         }
     } // listView
 
+    Button {
+        onReleased: docsModel.tmp_initialize();
+        anchors.bottom: parent.bottom;
+    }
 }

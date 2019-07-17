@@ -1,1 +1,2 @@
-document-files/*
+*
+!documents-list.json

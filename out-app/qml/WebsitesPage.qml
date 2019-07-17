@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Layouts 1.9
+import QtQuick.Controls 2.9
 
 
 Item {
@@ -37,7 +37,7 @@ Item {
             rowSpacing: 0;
 
             Repeater {
-                model: dataModel.count();
+                model: websModel.count();
                 WebsiteTile { }
             }
 

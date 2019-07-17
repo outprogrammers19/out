@@ -6,7 +6,7 @@ app:
     -> remove exit button ???
     -> write documentation, Doxygen?
     -> split DataModel class into multiple
-    -> store all settings (path, names, resolutions, sizes itp) in a config/init file
+    -> store all settings (path, names, resolutions, sizes, urls of server itp) in a config/init file
     -> update resources online:
         -> http folder?
         -> update only changes, do not download all the data each time (check time of changes in http server?)
@@ -15,6 +15,7 @@ app:
         -> gui scalling
         -> update, exit
         -> authors, license
+    -> translations: english, swahili, polish
 
 installer:
     windows:

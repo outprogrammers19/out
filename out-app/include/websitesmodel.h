@@ -1,15 +1,15 @@
-#ifndef DATA_MODEL_H
-#define DATA_MODEL_H
+#ifndef WEBSITES_MODEL_H
+#define WEBSITES_MODEL_H
 
 #include <QObject>
 
-class DataModel : public QObject
+class WebsitesModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString status READ status WRITE setStatus NOTIFY statusChanged)
 
 public:
-    explicit DataModel(QObject *parent = nullptr);
+    explicit WebsitesModel(QObject *parent = nullptr);
     bool readWebsitesList(const QString &filename);
     void clear();
 
@@ -28,11 +28,14 @@ public slots:
 
 private:
 
-#ifdef Q_OS_WIN
-    const QString webIconsDirName = "websites\\website-icons\\";
-#else
-    const QString webIconsDirName = "websites/website-icons/";
-#endif
+// NOTE: no need for that?
+//#ifdef Q_OS_WIN
+//    const QString websIconsDir = "websites-icons\\";
+//#else
+    const QString websIconsDir = "websites-icons/";
+//#endif
+
+    // TODO move websIconsDir to config
 
     int m_count = 0;
     QStringList m_names;
@@ -44,4 +47,4 @@ private:
     void validateIconFiles();
 };
 
-#endif // DATA_MODEL_H
+#endif // WEBSITES_MODEL_H

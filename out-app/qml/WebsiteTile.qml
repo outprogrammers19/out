@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.12
+import QtQuick.Controls 2.9
 
 Item {
     id: websiteTile;
@@ -21,20 +21,20 @@ Item {
             ToolTip.delay: 1000;
             ToolTip.timeout: 5000;
             ToolTip.visible: hovered;
-            ToolTip.text: dataModel.name(index);
+            ToolTip.text: websModel.name(index);
             
-            onReleased: dataModel.openUrl(index);
+            onReleased: websModel.openUrl(index);
             onHighlightedChanged: {
                 console.log(highlighted)
             }
 
             onHoveredChanged: {
-                var status = webButton.hovered ? dataModel.url(index) : "";
-                dataModel.setStatus(status);
+                var status = webButton.hovered ? websModel.url(index) : "";
+                websModel.setStatus(status);
             }
 
-            text: dataModel.icon(index) === "" ? dataModel.name(index) : "";
-            font.pixelSize: Config.normalFontSize;
+            text: websModel.icon(index) === "" ? websModel.name(index) : "";
+            font.pixelSize: Config.bigFontSize;
 
             Image {
                 id: webIcon;
@@ -42,7 +42,7 @@ Item {
                 height: 0.9 * parent.height;
                 width: 0.9 * parent.width;
                 fillMode: Image.PreserveAspectFit;
-                source: dataModel.icon(index);
+                source: websModel.icon(index);
             }
         } // webButton
     }
