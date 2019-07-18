@@ -6,58 +6,70 @@ import QtQuick.Controls 2.9
 Item {
     id: websitesPage;
 
-    property bool isScrollbarVisible: gridLayout.height > websitesPage.height;
+    property bool needToReload: false;
+
+    function reload() {
+        console.log("reloading");
+        loader.sourceComponent = null;
+        loader.sourceComponent = mainComponent;
+    }
+
+    Connections {
+        target: manager;
+        onIsUpdatingChanged: {
+            if (manager.isUpdating == false)
+                needToReload = true;
+        }
+    }
 
     Rectangle {
         anchors.fill: parent;
         color: "white";
     }
 
-    Flickable {
-        width: parent.width;
-        height: parent.height - 2 * Config.toolbarHorizonatalSpaceSize; // NOTE: no need to multiply by scale
-        anchors.centerIn: parent;
-        contentHeight: gridLayout.height
-        contentWidth: gridLayout.width
-        flickableDirection: Flickable.AutoFlickIfNeeded;
-        // interactive: false;
+    Loader {
+        id: loader;
+        anchors.fill: parent;
+        sourceComponent: mainComponent;
+    }
 
-        ScrollBar.vertical: ScrollBar {
-            id: scrollBar;
-            width: Config.scrollbarWidth;
-            policy: isScrollbarVisible ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff;
-        }
+    Component {
+        id: mainComponent;
 
-        GridLayout {
-            id: gridLayout;
-            width: websitesPage.width - scrollBar.width;
+        Flickable {
+            property bool isScrollbarVisible: gridLayout.height > websitesPage.height;
+
+            width: parent.width;
+            height: parent.height - 2 * Config.toolbarHorizonatalSpaceSize; // NOTE: no need to multiply by scale
             anchors.centerIn: parent;
-            columns: Math.max(1, width / Config.tileWidth);
-            columnSpacing: 0;
-            rowSpacing: 0;
+            contentHeight: gridLayout.height
+            contentWidth: gridLayout.width
+            flickableDirection: Flickable.AutoFlickIfNeeded;
+            // interactive: false;
 
-            Repeater {
-                model: websModel.count;
-                WebsiteTile { }
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar;
+                width: Config.scrollbarWidth;
+                policy: isScrollbarVisible ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff;
             }
 
-            onHeightChanged: {
-                width: height > parent.height ? websitesPage.width - scrollBar.width : websitesPage.width;
+            GridLayout {
+                id: gridLayout;
+                width: websitesPage.width - scrollBar.width;
+                anchors.centerIn: parent;
+                columns: Math.max(1, width / Config.tileWidth);
+                columnSpacing: 0;
+                rowSpacing: 0;
+
+                Repeater {
+                    model: websModel.count;
+                    WebsiteTile { }
+                }
+
+                onHeightChanged: {
+                    width: height > parent.height ? websitesPage.width - scrollBar.width : websitesPage.width;
+                }
             }
-        }
-    } // Flickable
-
-//    Rectangle {
-//        width: parent.width;
-//        height: Config.toolbarHorizonatalSpaceSize;
-//        color: "white";
-//        anchors.top: parent.top;
-//    }
-
-//    Rectangle {
-//        width: parent.width;
-//        height: Config.toolbarHorizonatalSpaceSize;
-//        color: "white";
-//        anchors.bottom: parent.bottom;
-//    }
+        } // Flickable
+    } // Component
 }

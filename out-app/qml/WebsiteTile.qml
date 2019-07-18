@@ -24,9 +24,6 @@ Item {
             ToolTip.text: "Open website: " + websModel.name(index);
             
             onReleased: manager.openUrl(websModel.url(index));
-            onHighlightedChanged: {
-                console.log(highlighted)
-            }
 
             onHoveredChanged: {
                 var status = webButton.hovered ? websModel.url(index) : "";

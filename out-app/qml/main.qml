@@ -27,7 +27,7 @@ ApplicationWindow {
                 id: webTabButton
                 text: "Websites";
                 font.pixelSize: Config.bigFontSize;
-                icon.source: "qrc:/other/app-icons/applications-internet.png";
+                icon.source: "qrc:/other/applications-internet.png";
                 icon.height: webTabButton.height - 19 * Config.scale;
                 icon.width: webTabButton.height - 19 * Config.scale;
                 //font.bold: true;
@@ -36,7 +36,7 @@ ApplicationWindow {
                 id: docsTabButton;
                 text: "Documents";
                 font.pixelSize: Config.bigFontSize;
-                icon.source: "qrc:/other/app-icons/document-open.png";
+                icon.source: "qrc:/other/document-open.png";
                 icon.height: docsTabButton.height - 14 * Config.scale;
                 icon.width: docsTabButton.height - 14 * Config.scale;
                 //font.bold: true;
@@ -45,7 +45,7 @@ ApplicationWindow {
                 id: settingsTabButton;
                 text: "Settings";
                 font.pixelSize: Config.bigFontSize;
-                icon.source: "qrc:/other/app-icons/system-run.png";
+                icon.source: "qrc:/other/system-run.png";
                 icon.height: settingsTabButton.height - 19 * Config.scale;
                 icon.width: settingsTabButton.height - 19 * Config.scale;
                 //font.bold: true;
@@ -60,10 +60,18 @@ ApplicationWindow {
         height: parent.height;
         currentIndex: tabBar.currentIndex
         interactive: Config.interactiveSwipe;
+        enabled: !manager.isUpdating;
 
-        WebsitesPage { }
+        WebsitesPage { id: websitesPage; }
         DocumentsPage { }
         SettingsPage { }
+
+        onCurrentIndexChanged: {
+            if (currentIndex === 0 && websitesPage.needToReload === true) {
+                websitesPage.reload();
+                websitesPage.needToReload = false;
+            }
+        }
     }
 
     footer: ToolBar {

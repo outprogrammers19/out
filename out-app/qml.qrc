@@ -7,11 +7,11 @@
         <file>qml/WebsitesPage.qml</file>
         <file>qml/DocumentsPage.qml</file>
         <file>qml/SettingsPage.qml</file>
-        <file>other/app-icons/out.ico</file>
-        <file>other/app-icons/text-x-generic.png</file>
-        <file>other/app-icons/text-html.png</file>
-        <file>other/app-icons/document-open.png</file>
-        <file>other/app-icons/applications-internet.png</file>
-        <file>other/app-icons/system-run.png</file>
+        <file>other/out.ico</file>
+        <file>other/text-x-generic.png</file>
+        <file>other/text-html.png</file>
+        <file>other/document-open.png</file>
+        <file>other/applications-internet.png</file>
+        <file>other/system-run.png</file>
     </qresource>
 </RCC>

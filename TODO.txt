@@ -16,6 +16,7 @@ app:
         -> update, exit
         -> authors, license
     -> translations: english, swahili, polish
+    -> move resources to a folder where user can write
 
 installer:
     windows:

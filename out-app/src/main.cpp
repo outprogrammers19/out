@@ -4,9 +4,13 @@
 #include <QIcon>
 #include <QQuickStyle>
 
+#include <QDebug>
+#include <QDir>
+
 #include "manager.h"
 #include "websitesmodel.h"
 #include "documentsmodel.h"
+#include "downloader.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,28 +22,16 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon("out.ico"));
 
-    // Create C++ classes and load settings
-    WebsitesModel websModel;
-    DocumentsModel docsModel;
+    // App backend written in C++
     Manager manager;
-
-    // TOOD errors, msgs or print status in gui:
-    if (manager.readAppConfig("") == false) {
-        return -1;
-    }
-    if (manager.readWebsitesConfig(websModel) == false) {
-//        return -1;
-    }
-    if (manager.readDocumentsConfig(docsModel) == false) {
-//        return -1;
-    }
+    manager.initialize(); // TODO config path
 
     QQmlApplicationEngine engine;
 
     // Expose C++ classes to the QML engine
-    engine.rootContext()->setContextProperty("websModel", &websModel);
-    engine.rootContext()->setContextProperty("docsModel", &docsModel);
     engine.rootContext()->setContextProperty("manager", &manager);
+    engine.rootContext()->setContextProperty("websModel", manager.getWebsitesModel());
+    engine.rootContext()->setContextProperty("docsModel", manager.getDocumentsModel());
 
     // Load QML files
     const QUrl url(QStringLiteral("qrc:///qml/main.qml"));

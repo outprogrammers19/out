@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QAbstractListModel>
+#include "resource.h"
 
 class DocumentsModel : public QAbstractListModel
 {
@@ -16,12 +17,6 @@ class DocumentsModel : public QAbstractListModel
     };
 
 public:
-    struct Document {
-        QString name;
-        QString url;
-        QString path;
-        QString timestamp;
-    };
 
     explicit DocumentsModel(QObject *parent = nullptr);
 
@@ -34,17 +29,18 @@ public:
     /** defines names of attributes used in view's delegate */
     QHash<int, QByteArray> roleNames() const override;
 
-    void addDocument(const Document &document);
+    void addDocument(const Resource &document);
 
     void clear();
+
+    const QVector<Resource>& getResources() const;
 
 signals:
 
 public slots:
-    void tmp_initialize(); // TODO remove
 
 private:
-    QVector<Document> m_docs;
+    QVector<Resource> m_docs;
 };
 
 #endif // DOCUMENTSMODEL_H

@@ -1,23 +1,19 @@
 #ifndef WEBSITES_MODEL_H
 #define WEBSITES_MODEL_H
 
+#include "resource.h"
 #include <QObject>
 
 class WebsitesModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int count READ count NOTIFY countChanged)
+    Q_PROPERTY(int count READ count WRITE setCount NOTIFY countChanged)
 
 public:
-    struct Website {
-        QString name;
-        QString url;
-        QString icon;
-    };
-
     explicit WebsitesModel(QObject *parent = nullptr);
-    void addWebsite(const Website &web);
+    void addWebsite(const Resource &web);
     int count() const;
+    const QVector<Resource>& getResources() const;
 
     void clear();
     QString status() const;
@@ -31,8 +27,11 @@ public slots:
     QString url(int index) const;
     QString icon(int index) const;
 
+    void setCount(int count);
+
 private:
-    QVector<Website> m_webs;
+    QVector<Resource> m_webs;
+    int m_count;
 };
 
 #endif // WEBSITES_MODEL_H

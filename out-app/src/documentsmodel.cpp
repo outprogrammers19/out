@@ -28,7 +28,7 @@ QVariant DocumentsModel::data(const QModelIndex &index, int role) const
     if (index.isValid() == false || index.row() >= m_docs.count())
         return  result;
 
-    Document doc = m_docs.at(index.row());
+    Resource doc = m_docs.at(index.row());
     switch (role) {
     case NAME:
         result = doc.name;
@@ -47,7 +47,7 @@ QVariant DocumentsModel::data(const QModelIndex &index, int role) const
     return result;
 }
 
-void DocumentsModel::addDocument(const Document &document)
+void DocumentsModel::addDocument(const Resource &document)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_docs << document;
@@ -56,18 +56,15 @@ void DocumentsModel::addDocument(const Document &document)
 
 void DocumentsModel::clear()
 {
-    beginRemoveRows(QModelIndex(), rowCount(), rowCount());
+    if (rowCount() == 0)
+        return;
+
+    beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
     m_docs.clear();
     endRemoveRows();
 }
 
-void DocumentsModel::tmp_initialize()
+const QVector<Resource> &DocumentsModel::getResources() const
 {
-    Document doc;
-    doc.name = "Prospectus";
-    doc.url = "https://www.out.ac.tz/wp-content/uploads/2019/01/PROSPECTUS-2018-2019.pdf";
-    doc.path = "PROSPECTUS 2018-2019.pdf";
-    doc.timestamp = "2019-07-17 09:44";
-
-    addDocument(doc);
+    return m_docs;
 }

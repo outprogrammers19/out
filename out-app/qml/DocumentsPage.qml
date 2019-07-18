@@ -9,7 +9,7 @@ Item {
     property bool isScrollbarVisible: totalEntriesHeight > documentsPage.height;
     property int selectedIndex: -1;
 
-    // auto-caculate height of all docs entries:
+    // auto-caculate total height of docs entries:
     property real totalEntriesHeight;
 
     function updateTotalEntiresHeight() {
@@ -95,14 +95,18 @@ Item {
                 ToolTip.delay: 1000;
                 ToolTip.timeout: 5000;
                 ToolTip.visible: hovered;
-                ToolTip.text: "Open file: " + manager.filenameFromPath(path);
+                ToolTip.text: "Open file: " + manager.filenameFromPath(url);
 
-                icon.source: "qrc:/other/app-icons/text-x-generic.png";
+                icon.source: "qrc:/other/text-x-generic.png";
                 icon.height: buttonIconSize;
                 icon.width: buttonIconSize;
                 icon.color: openButton.enabled ? "black" : "lightgrey";
 
-                onReleased: manager.openUrl(path === "" ? url : path);
+                // TODO open always file, but update it automatically?
+                onReleased: {
+                    if (path !== "")
+                       manager.openUrl(path);
+                }
                 onHoveredChanged: {
                     var status = openButton.hovered ? url : "";
                     manager.setStatusMsg(status);
