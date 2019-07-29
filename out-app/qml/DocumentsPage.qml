@@ -100,7 +100,7 @@ Item {
                 icon.source: "qrc:/other/text-x-generic.png";
                 icon.height: buttonIconSize;
                 icon.width: buttonIconSize;
-                icon.color: openButton.enabled ? "black" : "lightgrey";
+                icon.color: enabled ? "black" : "lightgrey";
 
                 // TODO open always file, but update it automatically?
                 onReleased: {

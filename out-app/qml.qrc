@@ -9,9 +9,12 @@
         <file>qml/SettingsPage.qml</file>
         <file>other/out.ico</file>
         <file>other/text-x-generic.png</file>
-        <file>other/text-html.png</file>
         <file>other/document-open.png</file>
         <file>other/applications-internet.png</file>
         <file>other/system-run.png</file>
+        <file>other/view-refresh.png</file>
+        <file>other/view-fullscreen.png</file>
+        <file>other/application-exit.png</file>
+        <file>other/system-shutdown.png</file>
     </qresource>
 </RCC>

@@ -276,7 +276,7 @@ void Manager::downloadConfigs()
 
 void Manager::downloadFiles()
 {
-    QThread::sleep(1); // TODO remove
+    QThread::msleep(500); // TODO remove?
 
     WebsitesModel tmpWebsModel;
     DocumentsModel tmpDocsModel;
@@ -349,6 +349,7 @@ void Manager::finishUpdate(bool success)
     setIsUpdating(false);
     if (success == false)
         qWarning() << "Update failed.";
+    emit updateFinished(success);
 }
 
 void Manager::deployUpdate()
@@ -409,4 +410,18 @@ void Manager::setStatusMsg(QString statusMsg)
 QString Manager::filenameFromPath(const QString &path) const
 {
     return QFileInfo(path).fileName();
+}
+
+void Manager::setRescaled(bool rescaled)
+{
+    if (m_rescaled == rescaled)
+        return;
+
+    m_rescaled = rescaled;
+    emit rescaledChanged(m_rescaled);
+}
+
+bool Manager::rescaled() const
+{
+    return m_rescaled;
 }

@@ -9,7 +9,6 @@ Item {
     property bool needToReload: false;
 
     function reload() {
-        console.log("reloading");
         loader.sourceComponent = null;
         loader.sourceComponent = mainComponent;
     }
@@ -17,8 +16,14 @@ Item {
     Connections {
         target: manager;
         onIsUpdatingChanged: {
-            if (manager.isUpdating == false)
+            if (isUpdating === false)
                 needToReload = true;
+        }
+        onRescaledChanged: {
+            if (rescaled === true) {
+                needToReload = true;
+                manager.rescaled = false;
+            }
         }
     }
 

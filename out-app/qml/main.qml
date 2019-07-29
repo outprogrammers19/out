@@ -76,6 +76,8 @@ ApplicationWindow {
 
     footer: ToolBar {
         width: parent.width;
+        height: 26 * Config.scale;
+
         Label {
             id: statusLabel;
             leftPadding: 10 * Config.scale;

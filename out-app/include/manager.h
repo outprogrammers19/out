@@ -14,6 +14,7 @@ class Manager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool isUpdating READ isUpdating NOTIFY isUpdatingChanged)
+    Q_PROPERTY(bool rescaled READ rescaled WRITE setRescaled NOTIFY rescaledChanged)
     Q_PROPERTY(QString statusMsg READ statusMsg WRITE setStatusMsg NOTIFY statusMsgChanged)
 
     enum UpdateState {
@@ -22,18 +23,19 @@ class Manager : public QObject
 
 public:
     explicit Manager(QObject *parent = nullptr);
-
     bool initialize();
 
     QString statusMsg() const;
     bool isUpdating() const;
     DocumentsModel* getDocumentsModel() const;
     WebsitesModel* getWebsitesModel() const;
+    bool rescaled() const;
 
 signals:
     void statusMsgChanged(QString statusMsg);
     void isUpdatingChanged(bool isUpdating);
-
+    void rescaledChanged(bool rescaled);
+    void updateFinished(bool status);
 
 public slots:
     bool openUrl(const QString &url) const;
@@ -41,9 +43,9 @@ public slots:
     QString filenameFromPath(const QString &path) const;
     void update();
     void fileDownloaded(QString url, bool status);
+    void setRescaled(bool rescaled);
 
 private:
-
     bool readAppConfig();
     void copyInitialResourcesIfNecessarily();
     bool readWebsitesConfig(const QString &websJsonPath, WebsitesModel *websModel);
@@ -90,6 +92,7 @@ private:
     QString m_webIconsDirName = "websites-icons";
 
     UpdateState m_currentState = Idle;
+    bool m_rescaled = false;
 };
 
 #endif // MANAGER_H
