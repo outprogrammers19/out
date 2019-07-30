@@ -1,14 +1,9 @@
+/**
+ * @author Jakub Precht
+ * @date 2019-07-31
+ */
+
 #include "websitesmodel.h"
-
-#include <QFileInfo>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QDebug>
-#include <QDesktopServices>
-#include <QUrl>
-
-#include <exception>
 
 WebsitesModel::WebsitesModel(QObject *parent)
     : QObject(parent)
@@ -55,13 +50,4 @@ QString WebsitesModel::icon(int index) const
     if(index < 0 || index > count())
         return "";
     return m_webs[index].icon;
-}
-
-void WebsitesModel::setCount(int count)
-{
-    if (m_count == count)
-        return;
-
-    m_count = count;
-    emit countChanged(m_count);
 }

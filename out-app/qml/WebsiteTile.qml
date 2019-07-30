@@ -1,9 +1,17 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.9
+/**
+ * @file WebsiteTile.qml
+ * @author Jakub Precht
+ * @date 2019-08-01
+ */
 
+import QtQuick 2.0
+import QtQuick.Controls 2.12
+
+/**
+ * @brief Defines button that once clicked, it opens corresponding link in the default browser
+ */
 Item {
     id: websiteTile;
-
     width: Config.tileWidth;
     height: Config.tileHeight;
 

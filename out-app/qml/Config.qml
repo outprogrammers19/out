@@ -1,10 +1,17 @@
+/**
+ * @file Config.qml
+ * @author Jakub Precht
+ * @date 2019-08-01
+ */
+
 pragma Singleton
-import QtQuick 2.9
+import QtQuick 2.12
 
-// TODO Config as .init file read and provided by c++ model
-
+/**
+ * @brief GUI settings globally visible to all QML elements.
+ */
 QtObject {
-    // NOTE: describe scaling mechanizam
+    id: config;
     property real scale : 1.0;
 
     property real tileHeight: 120 * scale;

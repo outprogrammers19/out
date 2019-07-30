@@ -1,7 +1,16 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.9
-import QtQuick.Layouts 1.9
+/**
+ * @file MainWindow.qml
+ * @author Jakub Precht
+ * @date 2019-08-01
+ */
 
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+
+/**
+ * @brief The main window of QML GUI, loaded in main.cpp.
+ */
 ApplicationWindow {
     id: window;
     visible: true;
@@ -11,6 +20,9 @@ ApplicationWindow {
     minimumWidth: 500 * Config.scale;
     minimumHeight: 320 * Config.scale;
 
+    /**
+     * @brief TabBar used to switch between 3 tabs: website, documents and settings.
+     */
     header: ToolBar {
         id: toolBar;
         height: Config.toolbarHeight;
@@ -53,6 +65,9 @@ ApplicationWindow {
         } // TabBar
     } // ToolBar
 
+    /**
+     * @brief SwipeView is responsible for drawing and updating pages depending on currently chosen tab in TabBar
+     */
     SwipeView {
         id: swipeView
         anchors.centerIn: parent;
@@ -67,14 +82,16 @@ ApplicationWindow {
         SettingsPage { }
 
         onCurrentIndexChanged: {
-            if (currentIndex === 0 && websitesPage.needToReload === true) {
+            if (currentIndex === 0 && websitesPage.needToReload === true)
                 websitesPage.reload();
-                websitesPage.needToReload = false;
-            }
         }
     }
 
+    /**
+     * @brief Footer's job is to display additional information depending on what is currently hovered by the mouse cursor.
+     */
     footer: ToolBar {
+        id: footer;
         width: parent.width;
         height: 26 * Config.scale;
 

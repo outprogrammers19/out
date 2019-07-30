@@ -28,3 +28,7 @@ installer:
 
 android:
     -> compile for some old and popular version, like 4.4?
+
+info:
+    -> describe where to change version:
+        main.cpp, Doxyfile, out-installer config itp

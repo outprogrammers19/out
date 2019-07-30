@@ -1,3 +1,8 @@
+/**
+ * @author Jakub Precht
+ * @date 2019-07-31
+ */
+
 #include "downloader.h"
 #include "manager.h"
 
@@ -12,15 +17,11 @@
 
 // TODO progress bar: https://www.bogotobogo.com/Qt/Qt5_QNetworkRequest_Http_File_Download.php
 
-Downloader::Downloader(QObject *parent) : QObject(parent)
+Downloader::Downloader(QObject *parent)
+    : QObject(parent)
 {
     m_network = new QNetworkAccessManager(this); // no need to delete
     connect(m_network, &QNetworkAccessManager::finished, this, &Downloader::replyFinished);
-}
-
-void Downloader::setManager(const Manager *manager)
-{
-    m_manager = manager;
 }
 
 void Downloader::clear()

@@ -1,3 +1,8 @@
+/**
+ * @author Jakub Precht
+ * @date 2019-07-31
+ */
+
 #include "manager.h"
 #include "websitesmodel.h"
 #include "documentsmodel.h"
@@ -15,12 +20,12 @@
 #include <QSettings>
 
 
-Manager::Manager(QObject *parent) : QObject(parent)
+Manager::Manager(QObject *parent)
+    : QObject(parent)
 {
     m_websModel = new WebsitesModel(this);
     m_docsModel = new DocumentsModel(this);
     m_downloader = new Downloader(this);
-    m_downloader->setManager(this);
 
     connect(m_downloader, &Downloader::fileDownloaded, this, &Manager::fileDownloaded);
 }
@@ -114,17 +119,17 @@ bool Manager::extractWebsFromJson(const QJsonObject &root, WebsitesModel *websMo
     return true;
 }
 
-void Manager::validateFilePath(QString &filePath)
+void Manager::validateFilePath(QString &path)
 {
-    QFileInfo fileStatus(filePath);
+    QFileInfo fileStatus(path);
     if (fileStatus.exists() == false || fileStatus.isFile() == false) {
         qWarning().noquote().nospace()
                 // << __FILE__ << ":" << __LINE__ << ":  "
-                << "File not found '" << filePath << "'.";
-        filePath = "";
+                << "File not found '" << path << "'.";
+        path = "";
     }
     else {
-        filePath = "file:" + filePath;
+        path = "file:" + path;
     }
 }
 
@@ -239,7 +244,7 @@ bool Manager::readAppConfig()
 
 void Manager::update()
 {
-    if (isUpdating() == true || isUpdateNeeded() == false)
+    if (isUpdating() == true)
         return;
 
     setIsUpdating(true);
@@ -249,11 +254,6 @@ void Manager::update()
 
     m_downloader->clear();
     downloadConfigs();
-}
-
-bool Manager::isUpdateNeeded() {
-    // TODO
-    return true;
 }
 
 void Manager::downloadConfigs()

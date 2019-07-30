@@ -1,10 +1,14 @@
+/**
+ * @author Jakub Precht
+ * @date 2019-08-01
+ */
+
 #include "include/documentsmodel.h"
 #include <QDebug>
 
-DocumentsModel::DocumentsModel(QObject *parent) : QAbstractListModel(parent)
-{
-    //    tmp_initialize();
-}
+DocumentsModel::DocumentsModel(QObject *parent)
+    : QAbstractListModel(parent)
+{ }
 
 QHash<int, QByteArray> DocumentsModel::roleNames() const
 {

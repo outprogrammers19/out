@@ -1,7 +1,16 @@
-import QtQuick 2.9
-import QtQuick.Layouts 1.9
-import QtQuick.Controls 2.9
+/**
+ * @file DocumentsPage.qml
+ * @author Jakub Precht
+ * @date 2019-08-01
+ */
 
+import QtQuick 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Controls 2.12
+
+/**
+ * @brief Displays documents as a list with buttons to open these files in system's default application.
+ */
 Item {
     id: documentsPage;
 
@@ -30,6 +39,10 @@ Item {
         color: "white";
     }
 
+    /**
+     * @brief Defines the list delegate, this is what should be a single entry in the list.
+     * It directly uses properties exposed by DocumentsModel (by roles mechanism), like: name, url, path
+     */
     Component {
         id: documentDelegate
 
@@ -136,6 +149,12 @@ Item {
         }
     } // Component documentDelegate
 
+    /**
+     * @brief Creates and manages list of documents. The view depends on documentDelegate and the content on DocumentsModel.
+     *
+     * The view is specified by delegate property, and the model property specifies the content. 'docsModel' is an instance of
+     * DocumentsModel exposed to QML engine in 'main.cpp' file.
+     */
     ListView {
         id: listView;
         anchors.fill: parent

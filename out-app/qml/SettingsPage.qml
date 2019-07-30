@@ -1,11 +1,23 @@
-import QtQuick 2.9
+/**
+ * @file SettingsPage.qml
+ * @author Jakub Precht
+ * @date 2019-08-01
+ */
 
-import QtQuick.Controls 2.9
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
+/**
+ * @brief Defines means to update, scale and exit the application.
+ */
 Item {
     id: settingsPage;
 
+    /**
+     * @brief Handle manager updateFinished signal
+     */
     Connections {
+        id: managerHandler;
         target: manager;
         onUpdateFinished: {
             if (status === true)
@@ -15,12 +27,18 @@ Item {
         }
     }
 
+    // -------------------- STRUCTURE --------------------
+
     Rectangle {
         anchors.fill: parent;
         color: "white";
     }
 
+    /**
+     * @brief Wrap settings with ScrollBar (if necessarily)
+     */
     Flickable {
+        id: settingsFlickable;
         anchors.fill: parent;
         contentHeight: settingsColumn.contentHeight;
         contentWidth: settingsPage.width;
@@ -34,6 +52,9 @@ Item {
             anchors.right: parent.right;
         }
 
+        /**
+         * @brief Column where each entry defines a different row with different option
+         */
         Column {
             id: settingsColumn;
             anchors.fill: parent;
@@ -49,6 +70,10 @@ Item {
                 color: "lightgrey";
             }
 
+            /**
+             * @brief It has a success/fail label next to the title that shows the status of last update attempt.
+             * It also has a busy indicator that appears when update is in process.
+             */
             Rectangle { // Updates row
                 id: updatesRow;
                 width: settingsPage.width;
@@ -124,8 +149,8 @@ Item {
                         ToolTip.text: "Check for updates and download if any exists.";
 
                         icon.source: "qrc:/other/view-refresh.png";
-                        icon.height: height - 22 * Config.scale;
-                        icon.width: width - 22 * Config.scale;
+                        icon.height: Config.docEntryButtonHeight - 22 * Config.scale;
+                        icon.width: Config.docEntryButtonHeight - 22 * Config.scale;
                         icon.color: enabled ? "black" : "lightgrey";
 
                         onReleased: {
@@ -143,6 +168,9 @@ Item {
                 color: "lightgrey";
             }
 
+            /**
+             * @brief The row create a Slider that is used to select GUI scale factor.
+             */
             Rectangle { // Scale row
                 id: settingsRow;
                 width: settingsPage.width;
@@ -204,8 +232,8 @@ Item {
                         ToolTip.text: "Re-scale application with the new scale factor."
 
                         icon.source: "qrc:/other/view-fullscreen.png";
-                        icon.height: height - 22 * Config.scale;
-                        icon.width: height - 22 * Config.scale;
+                        icon.height: Config.docEntryButtonHeight - 22 * Config.scale;
+                        icon.width: Config.docEntryButtonHeight - 22 * Config.scale;
                         icon.color: enabled ? "black" : "lightgrey";
 
                         onReleased: {
@@ -222,6 +250,9 @@ Item {
                 color: "lightgrey";
             }
 
+            /**
+             * @brief Exit row will terminate application in a normal way.
+             */
             Rectangle { // Exit row
                 id: exitRow;
                 width: settingsPage.width;
@@ -259,8 +290,8 @@ Item {
                         ToolTip.text: "Close the application.";
 
                         icon.source: "qrc:/other/application-exit.png";
-                        icon.height: height - 18 * Config.scale;
-                        icon.width: width - 18 * Config.scale;
+                        icon.height: Config.docEntryButtonHeight - 18 * Config.scale;
+                        icon.width: Config.docEntryButtonHeight - 18 * Config.scale;
                         icon.color: enabled ? "black" : "lightgrey";
 
                         onReleased: Qt.quit();
