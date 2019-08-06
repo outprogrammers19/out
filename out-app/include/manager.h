@@ -10,6 +10,7 @@
 #include "websitesmodel.h"
 class DocumentsModel;
 class Downloader;
+class QSettings;
 
 #include <QObject>
 #include <QDir>
@@ -38,6 +39,11 @@ class Manager : public QObject
      * @brief This property is used to display message at the bottom of the application window.
      */
     Q_PROPERTY(QString statusMsg READ statusMsg WRITE setStatusMsg NOTIFY statusMsgChanged)
+
+    /**
+     * @brief This property determines the scale factor for GUI. Sizes of all elements in GUI are determined based on this value.
+     */
+    Q_PROPERTY(double guiScaleFactor READ guiScaleFactor WRITE setGuiScaleFactor NOTIFY guiScaleFactorChanged)
 
     /**
      * @brief The UpdateState enum defines 3 states that an update can be in.
@@ -103,6 +109,12 @@ public:
      */
     bool rescaled() const;
 
+    /**
+     * @brief getter method for guiScaleFactor property
+     * @return current scale factor
+     */
+    double guiScaleFactor() const;
+
 signals:
     /**
      * @brief changed signal for statusMsg property
@@ -127,6 +139,12 @@ signals:
      * @param status true if update succeeded, otherwise false
      */
     void updateFinished(bool status);
+
+    /**
+     * @brief changed signal for guiScaleFactor property
+     * @param guiScaleFactor new value of the scale factor
+     */
+    void guiScaleFactorChanged(double guiScaleFactor);
 
 public slots:
     /**
@@ -185,6 +203,12 @@ public slots:
      * @param rescaled true if was rescaled
      */
     void setRescaled(bool rescaled);
+
+    /**
+     * @brief Setter method for guiScaleFactor property
+     * @param guiScaleFactor new factor
+     */
+    void setGuiScaleFactor(double guiScaleFactor);
 
 private:
     // private methods:
@@ -294,10 +318,12 @@ private:
     DocumentsModel *m_docsModel = nullptr;
     Downloader *m_downloader = nullptr;
 
-    QString m_appConfigFileName = "config.ini";
     QString m_serverUrl = "";
-
     QString m_dataDirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+
+    QString m_appConfigFileName = "config.ini";
+    QString m_appConfigFullPath = m_dataDirPath + "/" + m_appConfigFileName;
+
     QString m_resourcesDirName = "resources";
     QString m_updatesDirName = "updates";
     QString m_resourcesFullPath = m_dataDirPath + "/" + m_resourcesDirName + "/";
@@ -308,6 +334,9 @@ private:
 
     UpdateState m_currentState = Idle;
     bool m_rescaled = false;
+
+    QSettings *m_settings = nullptr;
+    double m_guiScaleFactor = 1.0;
 };
 
 #endif // MANAGER_H

@@ -59,14 +59,14 @@ Item {
             id: settingsColumn;
             anchors.fill: parent;
             width: settingsPage.width;
-            property real contentHeight: 4 * Math.max(1, Math.floor(1 * Config.scale))
+            property real contentHeight: 4 * Math.max(1, Math.floor(1 * manager.guiScaleFactor))
                                          + updatesRow.height
                                          + settingsRow.height
                                          + exitRow.height;
 
             Rectangle { // separator
                 width: settingsPage.width;
-                height: Math.max(1, Math.floor(1 * Config.scale));
+                height: Math.max(1, Math.floor(1 * manager.guiScaleFactor));
                 color: "lightgrey";
             }
 
@@ -77,15 +77,15 @@ Item {
             Rectangle { // Updates row
                 id: updatesRow;
                 width: settingsPage.width;
-                height: 100 * Config.scale;
+                height: 100 * manager.guiScaleFactor;
 
                 Label {
                     id: updateLabel
                     text: "Updates:";
                     font.pixelSize: Config.bigFontSize;
                     font.bold: true;
-                    x: 20 * Config.scale;
-                    y: 20 * Config.scale;
+                    x: 20 * manager.guiScaleFactor;
+                    y: 20 * manager.guiScaleFactor;
                 }
 
                 Label {
@@ -94,8 +94,8 @@ Item {
                     text: "Up-to-date";
                     color: "green";
                     anchors.left: updateLabel.right;
-                    anchors.leftMargin: 6 * Config.scale;
-                    y: 20 * Config.scale;
+                    anchors.leftMargin: 6 * manager.guiScaleFactor;
+                    y: 20 * manager.guiScaleFactor;
                     visible: false;
                 }
                 Label {
@@ -104,23 +104,23 @@ Item {
                     text: "Failed";
                     color: "red";
                     anchors.left: updateLabel.right;
-                    anchors.leftMargin: 6 * Config.scale;
-                    y: 20 * Config.scale;
+                    anchors.leftMargin: 6 * manager.guiScaleFactor;
+                    y: 20 * manager.guiScaleFactor;
                     visible: false;
                 }
 
                 Item {
                     height: parent.height;
                     anchors.centerIn: parent;
-                    width: 400 * Config.scale;
+                    width: 400 * manager.guiScaleFactor;
 
                     Item {
                         id: busyIndicator;
-                        width: 65 * Config.scale;
-                        height: 65 * Config.scale;
+                        width: 65 * manager.guiScaleFactor;
+                        height: 65 * manager.guiScaleFactor;
                         anchors.verticalCenter: parent.verticalCenter;
                         anchors.right: updateButton.left;
-                        anchors.rightMargin: 10 * Config.scale;
+                        anchors.rightMargin: 10 * manager.guiScaleFactor;
 
                         BusyIndicator { anchors.fill: parent; }
 
@@ -134,7 +134,7 @@ Item {
 
                     Button {
                         id: updateButton;
-                        width: 140 * Config.scale;
+                        width: 140 * manager.guiScaleFactor;
                         height: Config.docEntryButtonHeight;
                         anchors.verticalCenter: parent.verticalCenter;
                         anchors.right: parent.right;
@@ -149,8 +149,8 @@ Item {
                         ToolTip.text: "Check for updates and download if any exists.";
 
                         icon.source: "qrc:/other/view-refresh.png";
-                        icon.height: Config.docEntryButtonHeight - 22 * Config.scale;
-                        icon.width: Config.docEntryButtonHeight - 22 * Config.scale;
+                        icon.height: Config.docEntryButtonHeight - 22 * manager.guiScaleFactor;
+                        icon.width: Config.docEntryButtonHeight - 22 * manager.guiScaleFactor;
                         icon.color: enabled ? "black" : "lightgrey";
 
                         onReleased: {
@@ -164,7 +164,7 @@ Item {
 
             Rectangle { // separator
                 width: settingsPage.width;
-                height: Math.max(1, Math.floor(1 * Config.scale));
+                height: Math.max(1, Math.floor(1 * manager.guiScaleFactor));
                 color: "lightgrey";
             }
 
@@ -174,22 +174,22 @@ Item {
             Rectangle { // Scale row
                 id: settingsRow;
                 width: settingsPage.width;
-                height: 100 * Config.scale;
+                height: 100 * manager.guiScaleFactor;
 
                 Label {
                     id: scaleLabel;
                     text: "Interface Scale Factor:";
                     font.pixelSize: Config.bigFontSize;
                     font.bold: true;
-                    x: 20 * Config.scale;
-                    y: 10 * Config.scale;
+                    x: 20 * manager.guiScaleFactor;
+                    y: 10 * manager.guiScaleFactor;
                 }
                 Label {
                     text: slider.value.toFixed(2);
                     font.pixelSize: Config.bigFontSize;
                     anchors.left: scaleLabel.right;
-                    anchors.leftMargin: 6 * Config.scale;
-                    y: 10 * Config.scale;
+                    anchors.leftMargin: 6 * manager.guiScaleFactor;
+                    y: 10 * manager.guiScaleFactor;
                 }
                 Item {
                     anchors.centerIn: parent;
@@ -198,32 +198,32 @@ Item {
 
                     Item { // Scale row
                         id: scaleRow;
-                        height: 100 * Config.scale;
+                        height: 100 * manager.guiScaleFactor;
                         width: slider.width * slider.scale;
 
                         Slider {
                             id: slider;
-                            y: 48 * Config.scale;
-                            width: 120; // NOTE: do not multiply by Config.scale, you multiplied slider.scale
+                            y: 48 * manager.guiScaleFactor;
+                            width: 120; // NOTE: do not multiply by manager.guiScaleFactor, you multiplied slider.scale
                             anchors.horizontalCenter: parent.horizontalCenter;
                             from: 0.75;
-                            value: 1.0;
+                            value: manager.guiScaleFactor;
                             to: 2.0;
                             snapMode: Slider.SnapAlways;
-                            stepSize: 0.25;
-                            scale: 2.0 * Config.scale;
+                            stepSize: 0.125;
+                            scale: 2.0 * manager.guiScaleFactor;
                         }
                     }
                     Button {
                         id: scaleButton;
-                        width: 140 * Config.scale;
+                        width: 140 * manager.guiScaleFactor;
                         height: Config.docEntryButtonHeight;
                         text: "Apply";
                         font.pixelSize: Config.bigFontSize;
                         anchors.verticalCenter: scaleRow.verticalCenter;
                         anchors.left: scaleRow.right;
-                        anchors.leftMargin: 10 * Config.scale;
-                        enabled: slider.value !== Config.scale;
+                        anchors.leftMargin: 10 * manager.guiScaleFactor;
+                        enabled: slider.value !== manager.guiScaleFactor;
 
                         hoverEnabled: true;
                         ToolTip.delay: 1000;
@@ -232,12 +232,12 @@ Item {
                         ToolTip.text: "Re-scale application with the new scale factor."
 
                         icon.source: "qrc:/other/view-fullscreen.png";
-                        icon.height: Config.docEntryButtonHeight - 22 * Config.scale;
-                        icon.width: Config.docEntryButtonHeight - 22 * Config.scale;
+                        icon.height: Config.docEntryButtonHeight - 22 * manager.guiScaleFactor;
+                        icon.width: Config.docEntryButtonHeight - 22 * manager.guiScaleFactor;
                         icon.color: enabled ? "black" : "lightgrey";
 
                         onReleased: {
-                            Config.scale = slider.value;
+                            manager.guiScaleFactor = slider.value;
                             manager.rescaled = true;
                         }
                     }
@@ -246,7 +246,7 @@ Item {
 
             Rectangle { // separator
                 width: settingsPage.width;
-                height: Math.max(1, Math.floor(1 * Config.scale));
+                height: Math.max(1, Math.floor(1 * manager.guiScaleFactor));
                 color: "lightgrey";
             }
 
@@ -256,26 +256,17 @@ Item {
             Rectangle { // Exit row
                 id: exitRow;
                 width: settingsPage.width;
-                height: 100 * Config.scale;
-
-                //            Label {
-                //                id: exitLabel
-                //                text: "Close the application:";
-                //                font.pixelSize: Config.bigFontSize;
-                //                font.bold: true;
-                //                x: 20 * Config.scale;
-                //                y: 20 * Config.scale;
-                //            }
+                height: 100 * manager.guiScaleFactor;
 
                 Item {
                     height: parent.height;
                     anchors.centerIn: parent;
-                    width: 400 * Config.scale;
+                    width: 400 * manager.guiScaleFactor;
 
 
                     Button {
                         id: exitButton;
-                        width: 140 * Config.scale;
+                        width: 140 * manager.guiScaleFactor;
                         height: Config.docEntryButtonHeight;
                         anchors.verticalCenter: parent.verticalCenter;
                         anchors.right: parent.right;
@@ -290,8 +281,8 @@ Item {
                         ToolTip.text: "Close the application.";
 
                         icon.source: "qrc:/other/application-exit.png";
-                        icon.height: Config.docEntryButtonHeight - 18 * Config.scale;
-                        icon.width: Config.docEntryButtonHeight - 18 * Config.scale;
+                        icon.height: Config.docEntryButtonHeight - 18 * manager.guiScaleFactor;
+                        icon.width: Config.docEntryButtonHeight - 18 * manager.guiScaleFactor;
                         icon.color: enabled ? "black" : "lightgrey";
 
                         onReleased: Qt.quit();
@@ -301,7 +292,7 @@ Item {
 
             Rectangle { // separator
                 width: settingsPage.width;
-                height: Math.max(1, Math.floor(1 * Config.scale));
+                height: Math.max(1, Math.floor(1 * manager.guiScaleFactor));
                 color: "lightgrey";
             }
 

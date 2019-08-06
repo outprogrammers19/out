@@ -15,10 +15,10 @@ ApplicationWindow {
     id: window;
     visible: true;
 
-    width: 900 * Config.scale;
-    height: 680 * Config.scale;
-    minimumWidth: 500 * Config.scale;
-    minimumHeight: 320 * Config.scale;
+    width: 900 * manager.guiScaleFactor;
+    height: 680 * manager.guiScaleFactor;
+    minimumWidth: 500 * manager.guiScaleFactor;
+    minimumHeight: 320 * manager.guiScaleFactor;
 
     /**
      * @brief TabBar used to switch between 3 tabs: website, documents and settings.
@@ -32,7 +32,7 @@ ApplicationWindow {
             width: parent.width;
             anchors.left: parent.left;
             anchors.bottom: parent.bottom;
-            contentHeight: Config.toolbarHeight - 4 * Config.scale;
+            contentHeight: Config.toolbarHeight - 4 * manager.guiScaleFactor;
             currentIndex: swipeView.currentIndex
 
             TabButton {
@@ -40,8 +40,8 @@ ApplicationWindow {
                 text: "Websites";
                 font.pixelSize: Config.bigFontSize;
                 icon.source: "qrc:/other/applications-internet.png";
-                icon.height: webTabButton.height - 19 * Config.scale;
-                icon.width: webTabButton.height - 19 * Config.scale;
+                icon.height: webTabButton.height - 19 * manager.guiScaleFactor;
+                icon.width: webTabButton.height - 19 * manager.guiScaleFactor;
                 //font.bold: true;
             }
             TabButton {
@@ -49,8 +49,8 @@ ApplicationWindow {
                 text: "Documents";
                 font.pixelSize: Config.bigFontSize;
                 icon.source: "qrc:/other/document-open.png";
-                icon.height: docsTabButton.height - 14 * Config.scale;
-                icon.width: docsTabButton.height - 14 * Config.scale;
+                icon.height: docsTabButton.height - 14 * manager.guiScaleFactor;
+                icon.width: docsTabButton.height - 14 * manager.guiScaleFactor;
                 //font.bold: true;
             }
             TabButton {
@@ -58,8 +58,8 @@ ApplicationWindow {
                 text: "Settings";
                 font.pixelSize: Config.bigFontSize;
                 icon.source: "qrc:/other/system-run.png";
-                icon.height: settingsTabButton.height - 19 * Config.scale;
-                icon.width: settingsTabButton.height - 19 * Config.scale;
+                icon.height: settingsTabButton.height - 19 * manager.guiScaleFactor;
+                icon.width: settingsTabButton.height - 19 * manager.guiScaleFactor;
                 //font.bold: true;
             }
         } // TabBar
@@ -93,11 +93,11 @@ ApplicationWindow {
     footer: ToolBar {
         id: footer;
         width: parent.width;
-        height: 26 * Config.scale;
+        height: 26 * manager.guiScaleFactor;
 
         Label {
             id: statusLabel;
-            leftPadding: 10 * Config.scale;
+            leftPadding: 10 * manager.guiScaleFactor;
             font.pixelSize: Config.normalFontSize;
             anchors.verticalCenter: parent.verticalCenter;
             text: manager.statusMsg;

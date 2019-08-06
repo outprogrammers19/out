@@ -12,18 +12,17 @@ import QtQuick 2.12
  */
 QtObject {
     id: config;
-    property real scale : 1.0;
 
-    property real tileHeight: 120 * scale;
-    property real tileWidth: 220  * scale;
-    property real toolbarHeight: 52 * scale;
-    property real docEntryButtonHeight: 48 * scale;
-    property real docEntryHeight: 60 * scale;
-    property real toolbarHorizonatalSpaceSize: 1 * scale;
-    property real scrollbarWidth: 16 * scale;
-    property real bigFontSize: 19 * scale;
-    property real normalFontSize: 15 * scale;
-    property real smallFontSize: 12 * scale;
+    property real tileHeight: 120 * manager.guiScaleFactor;
+    property real tileWidth: 220  * manager.guiScaleFactor;
+    property real toolbarHeight: 52 * manager.guiScaleFactor;
+    property real docEntryButtonHeight: 48 * manager.guiScaleFactor;
+    property real docEntryHeight: 60 * manager.guiScaleFactor;
+    property real toolbarHorizonatalSpaceSize: 1 * manager.guiScaleFactor;
+    property real scrollbarWidth: 16 * manager.guiScaleFactor;
+    property real bigFontSize: 19 * manager.guiScaleFactor;
+    property real normalFontSize: 15 * manager.guiScaleFactor;
+    property real smallFontSize: 12 * manager.guiScaleFactor;
 
     property bool interactiveSwipe: false; // TODO true for mobile, false for desktop
 }

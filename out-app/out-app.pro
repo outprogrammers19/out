@@ -34,12 +34,12 @@ ICON = other/out.ico
 
 COPIES += copy_to_build_dir
 copy_to_build_dir.files += $$files(other/out.ico)
+copy_to_build_dir.files += $$files(resources/config.ini)
 copy_to_build_dir.path = $$OUT_PWD
 
 COPIES += copy_to_resources_dir
 copy_to_resources_dir.files += $$files(resources/websites-list.json)
 copy_to_resources_dir.files += $$files(resources/documents-list.json)
-copy_to_resources_dir.files += $$files(resources/config.ini)
 copy_to_resources_dir.path = $$OUT_PWD/resources
 
 COPIES += copy_to_websites_icons_dir

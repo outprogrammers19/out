@@ -14,7 +14,7 @@ import QtQuick.Controls 2.12
 Item {
     id: documentsPage;
 
-    property real buttonIconSize: Config.docEntryButtonHeight - 22 * Config.scale;
+    property real buttonIconSize: Config.docEntryButtonHeight - 22 * manager.guiScaleFactor;
     property bool isScrollbarVisible: totalEntriesHeight > documentsPage.height;
     property int selectedIndex: -1;
 
@@ -54,9 +54,9 @@ Item {
             Rectangle {
                 id: bg;
                 anchors.fill: parent;
-                anchors.topMargin: Math.max(1, Math.floor(1 * Config.scale));
-                anchors.leftMargin: 20 * Config.scale;
-                anchors.rightMargin: 20 * Config.scale;
+                anchors.topMargin: Math.max(1, Math.floor(1 * manager.guiScaleFactor));
+                anchors.leftMargin: 20 * manager.guiScaleFactor;
+                anchors.rightMargin: 20 * manager.guiScaleFactor;
                 color: index === selectedIndex ? "#dddddd" : "transparent";
                 //color: index === selectedIndex ? "lightgrey" : "transparent";
 
@@ -77,7 +77,7 @@ Item {
                 wrapMode: Label.WrapAnywhere;
                 maximumLineCount: 1;
                 anchors.verticalCenter: parent.verticalCenter;
-                anchors.leftMargin: 35 * Config.scale;
+                anchors.leftMargin: 35 * manager.guiScaleFactor;
                 anchors.left: parent.left;
                 anchors.right: openButton.left;
                 font.pixelSize: Config.bigFontSize;
@@ -89,13 +89,13 @@ Item {
                 font.pixelSize: Config.smallFontSize;
                 anchors.bottom: parent.bottom;
                 anchors.right: openButton.left;
-                anchors.rightMargin: 10 * Config.scale;
+                anchors.rightMargin: 10 * manager.guiScaleFactor;
             }
             Button {
                 id: openButton;
-                width: 140 * Config.scale;
+                width: 140 * manager.guiScaleFactor;
                 height: Config.docEntryButtonHeight;
-                anchors.rightMargin: 40 * Config.scale;
+                anchors.rightMargin: 40 * manager.guiScaleFactor;
                 anchors.right: parent.right;
                 anchors.verticalCenter: parent.verticalCenter;
 
@@ -131,9 +131,9 @@ Item {
                 anchors.top: parent.top;
                 anchors.left: parent.left;
                 anchors.right: parent.right;
-                anchors.leftMargin: 20 * Config.scale;
-                anchors.rightMargin: 20 * Config.scale;
-                height: index !== 0 ? 0 : Math.max(1, Math.floor(1 * Config.scale));
+                anchors.leftMargin: 20 * manager.guiScaleFactor;
+                anchors.rightMargin: 20 * manager.guiScaleFactor;
+                height: index !== 0 ? 0 : Math.max(1, Math.floor(1 * manager.guiScaleFactor));
                 color: "lightgrey";
             }
             Rectangle {
@@ -141,9 +141,9 @@ Item {
                 anchors.top: parent.bottom;
                 anchors.left: parent.left;
                 anchors.right: parent.right;
-                anchors.leftMargin: 20 * Config.scale;
-                anchors.rightMargin: 20 * Config.scale;
-                height: Math.max(1, Math.floor(1 * Config.scale));
+                anchors.leftMargin: 20 * manager.guiScaleFactor;
+                anchors.rightMargin: 20 * manager.guiScaleFactor;
+                height: Math.max(1, Math.floor(1 * manager.guiScaleFactor));
                 color: "lightgrey";
             }
         }

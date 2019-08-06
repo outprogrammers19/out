@@ -16,8 +16,8 @@ Item {
     height: Config.tileHeight;
 
     Item {
-        width: parent.width - 10 * Config.scale;
-        height: parent.height - 10 * Config.scale;
+        width: parent.width - 10 * manager.guiScaleFactor;
+        height: parent.height - 10 * manager.guiScaleFactor;
         anchors.centerIn: parent;
 
         Button {

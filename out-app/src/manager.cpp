@@ -184,11 +184,15 @@ bool Manager::extractDocsFromJson(const QJsonObject &root, DocumentsModel *docsM
     return true;
 }
 
-
 void Manager::copyInitialResourcesIfNecessarily()
 {
-    copyDirsAndFiles(QCoreApplication::applicationDirPath() + "/" + m_resourcesDirName + "/",
-            m_resourcesFullPath);
+    // this method will also create direcotry if it doesn't exists, so call it before trying to copy 'config.init'
+    copyDirsAndFiles(QCoreApplication::applicationDirPath() + "/" + m_resourcesDirName + "/", m_resourcesFullPath);
+
+    // copy 'config.ini'
+    QFileInfo configInfo(m_appConfigFullPath);
+    if (configInfo.exists() == false)
+        QFile::copy(QCoreApplication::applicationDirPath() + "/" + m_appConfigFileName, m_appConfigFullPath);
 }
 
 void Manager::copyDirsAndFiles(const QString &srcDirPath, const QString &destDirPath) const
@@ -228,15 +232,24 @@ void Manager::copyDirsAndFiles(const QString &srcDirPath, const QString &destDir
 
 bool Manager::readAppConfig()
 {
-    auto val = QSettings(m_resourcesFullPath + m_appConfigFileName, QSettings::IniFormat)
-            .value("serverUrl");
+    if (m_settings == nullptr)
+        m_settings = new QSettings(m_appConfigFullPath, QSettings::IniFormat, this);
 
-    // TODO store settings
+    auto urlVal = m_settings->value("serverUrl");
+    auto scaleVal = m_settings->value("guiScaleFactor");
 
-    if (val.isNull())
+    QVariant v;
+    m_serverUrl = urlVal.toString();
+
+    bool isOk = true;
+    double factor = scaleVal.toDouble(&isOk);
+    if (isOk == false || urlVal.isNull() == true)
         return false;
 
-    m_serverUrl = val.toString();
+    if (factor < 0.75 || factor > 2)
+        return false;
+
+    setGuiScaleFactor(factor);
     return true;
 }
 
@@ -354,6 +367,7 @@ void Manager::finishUpdate(bool success)
 
 void Manager::deployUpdate()
 {
+    qInfo() << "deleting " << m_resourcesFullPath;
     QDir oldDir(m_resourcesFullPath);
     oldDir.removeRecursively();
 
@@ -424,4 +438,20 @@ void Manager::setRescaled(bool rescaled)
 bool Manager::rescaled() const
 {
     return m_rescaled;
+}
+
+double Manager::guiScaleFactor() const
+{
+    return m_guiScaleFactor;
+}
+
+void Manager::setGuiScaleFactor(double guiScaleFactor)
+{
+    // compare floating point numbers to 3 decimal places
+    if (static_cast<int>(m_guiScaleFactor * 1000) == static_cast<int>(guiScaleFactor * 1000))
+        return;
+
+    m_guiScaleFactor = guiScaleFactor;
+    m_settings->setValue("guiScaleFactor", guiScaleFactor);
+    emit guiScaleFactorChanged(m_guiScaleFactor);
 }
