@@ -6,4 +6,7 @@
     <ReleaseDate>2019-07-11</ReleaseDate>
     <Default>true</Default>
     <Script>install-script.qs</Script>
+    <Licenses>
+        <License name="GPL-3.0 License Agreement" file="LICENSE.txt" />
+    </Licenses>
 </Package>
