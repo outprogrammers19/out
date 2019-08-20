@@ -1,9 +1,20 @@
 {
     "documents": [
         {
+            "name": "Prospectus",
+            "path": "documents/PROSPECTUS-2018-2019.pdf"
+        },
+        {
             "name": "Almanac",
-            "url": "http://localhost/out/documents/ALMANAC-2018-2019.pdf",
             "path": "documents/ALMANAC-2018-2019.pdf"
+        },
+        {
+            "name": "Examination Information",
+            "path": "documents/OUT-EXAMINATION-MANAGMENT-.pdf"
+        },
+        {
+            "name": "Facts and Figures",
+            "path": "documents/FACTS-AND-FIGURES-2017-2018.pdf"
         }
     ]
 }

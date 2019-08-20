@@ -108,7 +108,7 @@ Item {
                 ToolTip.delay: 1000;
                 ToolTip.timeout: 5000;
                 ToolTip.visible: hovered;
-                ToolTip.text: "Open file: " + manager.filenameFromPath(url);
+                ToolTip.text: "Open file: " + manager.filenameFromPath(path);
 
                 icon.source: "qrc:/other/text-x-generic.png";
                 icon.height: buttonIconSize;
@@ -121,7 +121,7 @@ Item {
                        manager.openUrl(path);
                 }
                 onHoveredChanged: {
-                    var status = openButton.hovered ? url : "";
+                    var status = openButton.hovered ? manager.serverUrl + url : "";
                     manager.setStatusMsg(status);
                 }
             }

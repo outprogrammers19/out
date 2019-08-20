@@ -1,5 +1,5 @@
 QT += qml quick quickcontrols2 network
-CONFIG += c++14
+CONFIG += c++14 openssl-linked
 TARGET = OUT
 
 DEFINES += QT_DEPRECATED_WARNINGS

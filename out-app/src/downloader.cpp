@@ -36,6 +36,7 @@ void Downloader::downloadHeader(const Resource &resource)
 
 void Downloader::downloadFile(const Resource &resource)
 {
+    qInfo() << "Downloading file:" << resource.url;
     m_pathsForUrls[resource.url] = resource.path;
     m_network->get(QNetworkRequest(QUrl(resource.url)));
 }

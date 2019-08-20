@@ -72,6 +72,8 @@ structure: <br>
 ├── libGLESV2.dll
 ├── libstdc++-6.dll
 ├── libwinpthread-1.dll
+├── libcrypto-1_1-x64.dll
+├── libssl-1_1-x64.dll
 ├── platforms
 │   └── qwindows.dll
 ├── Qt5Core.dll

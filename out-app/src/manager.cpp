@@ -159,18 +159,18 @@ bool Manager::extractDocsFromJson(const QJsonObject &root, DocumentsModel *docsM
         QJsonObject docObj = docVal.toObject();
 
         QJsonValue nameVal = docObj.value("name");
-        QJsonValue urlVal = docObj.value("url");
+        // QJsonValue urlVal = docObj.value("url");
         QJsonValue pathVal = docObj.value("path");
         QJsonValue timestampVal = docObj.value("timestamp");
 
         if (nameVal.isString() ==false
-                || urlVal.isString() == false
+                // || urlVal.isString() == false
                 || pathVal.isString() == false)
             return false;
 
         Resource doc;
         doc.name = nameVal.toString();
-        doc.url = urlVal.toString();
+        doc.url = pathVal.toString();
         doc.timestamp = timestampVal.toString();
         if (isUpdating()) {
             doc.path = m_updatesFullPath + pathVal.toString();
@@ -186,8 +186,11 @@ bool Manager::extractDocsFromJson(const QJsonObject &root, DocumentsModel *docsM
 
 void Manager::copyInitialResourcesIfNecessarily()
 {
-    // this method will also create direcotry if it doesn't exists, so call it before trying to copy 'config.init'
-    copyDirsAndFiles(QCoreApplication::applicationDirPath() + "/" + m_resourcesDirName + "/", m_resourcesFullPath);
+    QDir dir(m_resourcesFullPath);
+    if (dir.exists() == false) {
+        // this method will also create direcotry if it doesn't exists, so call it before trying to copy 'config.init'
+        copyDirsAndFiles(QCoreApplication::applicationDirPath() + "/" + m_resourcesDirName + "/", m_resourcesFullPath);
+    }
 
     // copy 'config.ini'
     QFileInfo configInfo(m_appConfigFullPath);
@@ -241,9 +244,7 @@ bool Manager::readAppConfig()
 
     auto scaleVal = m_settings->value("guiScaleFactor");
 
-    QVariant v;
-    m_serverUrl = urlVal.toString();
-    emit serverUrlChanged(m_serverUrl);
+    setServerUrl(urlVal.toString());
 
     bool isOk = true;
     double factor = scaleVal.toDouble(&isOk);
@@ -313,7 +314,10 @@ void Manager::downloadFiles()
         toGetList.back().url = m_serverUrl + r.icon;
         toGetList.back().path = m_updatesFullPath + r.icon;
     }
-    toGetList << tmpDocsModel.getResources();
+    for (auto &r : tmpDocsModel.getResources()) {
+        toGetList.push_back(r);
+        toGetList.back().url = m_serverUrl + r.url;
+    }
 
     if (toGetList.count() == 0)
         return;
@@ -371,7 +375,6 @@ void Manager::finishUpdate(bool success)
 
 void Manager::deployUpdate()
 {
-    qInfo() << "deleting " << m_resourcesFullPath;
     QDir oldDir(m_resourcesFullPath);
     oldDir.removeRecursively();
 
@@ -470,6 +473,9 @@ void Manager::setServerUrl(QString serverUrl)
     if (m_serverUrl == serverUrl)
         return;
 
+    if (serverUrl.back() != '/')
+        serverUrl.append('/');
+
     m_serverUrl = serverUrl;
     m_settings->setValue("currentServerUrl", serverUrl);
     emit serverUrlChanged(m_serverUrl);
@@ -482,5 +488,6 @@ bool Manager::resetServerUrl()
         return false;
 
     setServerUrl(urlVal.toString());
+
     return true;
 }
