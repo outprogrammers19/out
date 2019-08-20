@@ -46,6 +46,11 @@ class Manager : public QObject
     Q_PROPERTY(double guiScaleFactor READ guiScaleFactor WRITE setGuiScaleFactor NOTIFY guiScaleFactorChanged)
 
     /**
+     * @brief This property describes the address of server used for updates.
+     */
+    Q_PROPERTY(QString serverUrl READ serverUrl WRITE setServerUrl NOTIFY serverUrlChanged)
+
+    /**
      * @brief The UpdateState enum defines 3 states that an update can be in.
      *
      * <b>Idle</b> when no update is being carried out, <b>DownloadConfigs</b> when manager is currently downloading configuration files
@@ -115,6 +120,12 @@ public:
      */
     double guiScaleFactor() const;
 
+    /**
+     * @brief getter method for serverUrl property
+     * @return current server Url
+     */
+    QString serverUrl() const;
+
 signals:
     /**
      * @brief changed signal for statusMsg property
@@ -145,6 +156,12 @@ signals:
      * @param guiScaleFactor new value of the scale factor
      */
     void guiScaleFactorChanged(double guiScaleFactor);
+
+    /**
+     * @brief changed signal for serverUrl property
+     * @param serverUrl new server address
+     */
+    void serverUrlChanged(QString serverUrl);
 
 public slots:
     /**
@@ -209,6 +226,18 @@ public slots:
      * @param guiScaleFactor new factor
      */
     void setGuiScaleFactor(double guiScaleFactor);
+
+
+    /**
+     * @brief Setter method for serverUrl property
+     * @param serverUrl new URL
+     */
+    void setServerUrl(QString serverUrl);
+
+    /**
+     * @brief Reset server URL to the default value stored in config.ini
+     */
+    bool resetServerUrl();
 
 private:
     // private methods:

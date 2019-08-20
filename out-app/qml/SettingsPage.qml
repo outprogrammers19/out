@@ -62,7 +62,8 @@ Item {
             property real contentHeight: 4 * Math.max(1, Math.floor(1 * manager.guiScaleFactor))
                                          + updatesRow.height
                                          + settingsRow.height
-                                         + exitRow.height;
+                                         + exitRow.height
+                                         + serverRow.height;
 
             Rectangle { // separator
                 width: settingsPage.width;
@@ -71,7 +72,7 @@ Item {
             }
 
             /**
-             * @brief It has a success/fail label next to the title that shows the status of last update attempt.
+             * @brief Updaes row has a success/fail label next to the title that shows the status of last update attempt.
              * It also has a busy indicator that appears when update is in process.
              */
             Rectangle { // Updates row
@@ -161,6 +162,99 @@ Item {
                     }
                 }
             } // !Updates row
+
+            Rectangle { // separator
+                width: settingsPage.width;
+                height: Math.max(1, Math.floor(1 * manager.guiScaleFactor));
+                color: "lightgrey";
+            }
+
+            /**
+             * @brief This row allows to change server URL address used for updates. In case of accidental changes there is a reset button
+             * to restore default value.
+             */
+            Rectangle { // Server URL row
+                id: serverRow;
+                width: settingsPage.width;
+                height: 140 * manager.guiScaleFactor;
+
+                Label {
+                    id: serverLabel
+                    text: "Server URL:";
+                    font.pixelSize: Config.bigFontSize;
+                    font.bold: true;
+                    x: 20 * manager.guiScaleFactor;
+                    y: 20 * manager.guiScaleFactor;
+                }
+
+
+                Item {
+                    height: parent.height;
+                    anchors.centerIn: parent;
+                    width: 400 * manager.guiScaleFactor;
+
+                    TextField {
+                        id: serverTextField;
+                        font.pixelSize: Config.normalFontSize;
+                        x: -40 * manager.guiScaleFactor;
+                        y: 52 * manager.guiScaleFactor;
+                        width: 290 * manager.guiScaleFactor;
+                        height: 36 * manager.guiScaleFactor;
+                        text: manager.serverUrl;
+                    }
+
+                    Button {
+                        id: defaultServerButton;
+                        width: 140 * manager.guiScaleFactor;
+                        height: Config.docEntryButtonHeight;
+                        y: 15 * manager.guiScaleFactor;
+                        anchors.right: parent.right;
+                        text: "Default";
+                        font.pixelSize: Config.bigFontSize;
+
+                        hoverEnabled: true;
+                        ToolTip.delay: 1000;
+                        ToolTip.timeout: 5000;
+                        ToolTip.visible: hovered;
+                        ToolTip.text: "Restore the default URL.";
+
+                        icon.source: "qrc:/other/edit-undo.png";
+                        icon.height: Config.docEntryButtonHeight - 18 * manager.guiScaleFactor;
+                        icon.width: Config.docEntryButtonHeight - 18 * manager.guiScaleFactor;
+                        icon.color: enabled ? "black" : "lightgrey";
+
+                        onReleased: {
+                            manager.resetServerUrl();
+                        }
+                    }
+
+                    Button {
+                        id: newServerButton;
+                        width: 140 * manager.guiScaleFactor;
+                        height: Config.docEntryButtonHeight;
+                        y: 75 * manager.guiScaleFactor;
+                        anchors.right: parent.right;
+                        text: "Change";
+                        font.pixelSize: Config.bigFontSize;
+                        enabled: serverTextField.text != manager.serverUrl;
+
+                        hoverEnabled: true;
+                        ToolTip.delay: 1000;
+                        ToolTip.timeout: 5000;
+                        ToolTip.visible: hovered;
+                        ToolTip.text: "Set new ULR value.";
+
+                        icon.source: "qrc:/other/dialog-ok.png";
+                        icon.height: Config.docEntryButtonHeight - 18 * manager.guiScaleFactor;
+                        icon.width: Config.docEntryButtonHeight - 18 * manager.guiScaleFactor;
+                        icon.color: enabled ? "black" : "lightgrey";
+
+                        onReleased: {
+                            manager.serverUrl = serverTextField.text;
+                        }
+                    }
+                }
+            } // !Server URL row
 
             Rectangle { // separator
                 width: settingsPage.width;

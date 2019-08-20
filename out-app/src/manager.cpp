@@ -235,11 +235,15 @@ bool Manager::readAppConfig()
     if (m_settings == nullptr)
         m_settings = new QSettings(m_appConfigFullPath, QSettings::IniFormat, this);
 
-    auto urlVal = m_settings->value("serverUrl");
+    auto urlVal = m_settings->value("currentServerUrl");
+    if (urlVal.isValid() == false || urlVal.isNull())
+        urlVal = m_settings->value("defaultServerUrl");
+
     auto scaleVal = m_settings->value("guiScaleFactor");
 
     QVariant v;
     m_serverUrl = urlVal.toString();
+    emit serverUrlChanged(m_serverUrl);
 
     bool isOk = true;
     double factor = scaleVal.toDouble(&isOk);
@@ -454,4 +458,29 @@ void Manager::setGuiScaleFactor(double guiScaleFactor)
     m_guiScaleFactor = guiScaleFactor;
     m_settings->setValue("guiScaleFactor", guiScaleFactor);
     emit guiScaleFactorChanged(m_guiScaleFactor);
+}
+
+QString Manager::serverUrl() const
+{
+    return m_serverUrl;
+}
+
+void Manager::setServerUrl(QString serverUrl)
+{
+    if (m_serverUrl == serverUrl)
+        return;
+
+    m_serverUrl = serverUrl;
+    m_settings->setValue("currentServerUrl", serverUrl);
+    emit serverUrlChanged(m_serverUrl);
+}
+
+bool Manager::resetServerUrl()
+{
+    auto urlVal = m_settings->value("defaultServerUrl");
+    if (urlVal.isValid() == false || urlVal.isNull())
+        return false;
+
+    setServerUrl(urlVal.toString());
+    return true;
 }

@@ -3,7 +3,7 @@ The Open University of Tanzania application
 
 ![alt text](docs/screens/s1.png)
 ![alt text](docs/screens/s2.png)
-![alt text](docs/screens/s3.png)
+![alt text](docs/screens/s4.png)
 
 @mainpage OUT - The Open University of Tanzania application  
 @version 1.0  
@@ -26,7 +26,7 @@ with the Qt framework. The app is compiled with GCC 9.1.0 under Linux and MinGW 
 
 After installing Qt framework open out-app.pro with QtCreator and build the project. To generate documentation from 
 source code comments go to <b>docs</b> directory and run '<em>doxygen</em>' from command line (you need to install 
-Doxygen first; I only did this on Linux, so I don't know if it works on other platforms).
+Doxygen and python package called doxyqml; I only did this on Linux, so I don't know if it works on other platforms).
 
 ## Updating application content
 

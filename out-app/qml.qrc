@@ -15,6 +15,7 @@
         <file>other/view-refresh.png</file>
         <file>other/view-fullscreen.png</file>
         <file>other/application-exit.png</file>
-        <file>other/system-shutdown.png</file>
+        <file>other/edit-undo.png</file>
+        <file>other/dialog-ok.png</file>
     </qresource>
 </RCC>
