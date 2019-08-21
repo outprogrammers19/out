@@ -1,5 +1,5 @@
 # OUT
-The Open University of Tanzania application.
+The Open University of Tanzania application
 
 ![alt text](docs/screens/s1.png)
 ![alt text](docs/screens/s2.png)
